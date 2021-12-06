@@ -58,6 +58,7 @@ public class PropertyController extends DBController implements Subject {
             PreparedStatement stmt = dbConnect.prepareStatement(query);
             stmt.setString(0, status);
             stmt.setInt(1, propertyID);
+            notifyObservers();
 
             stmt.executeUpdate();
             stmt.close();
@@ -74,6 +75,7 @@ public class PropertyController extends DBController implements Subject {
             String query = "DELETE FROM property WHERE propertyID = ?";
             PreparedStatement stmt = dbConnect.prepareStatement(query);
             stmt.setInt(1, propertyID);
+            notifyObservers();
 
             stmt.executeUpdate();
             stmt.close();
@@ -94,8 +96,6 @@ public class PropertyController extends DBController implements Subject {
             String query = "SELECT * FROM property";
             stmt = dbConnect.createStatement();
             set = stmt.executeQuery(query);
-            ResultSetMetaData setMetaData = set.getMetaData();
-
             while (set.next()) {
 
                 Property p = new Property(set.getInt("propertyID"), set.getInt("landlordID"),
