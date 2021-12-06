@@ -29,9 +29,6 @@ public class NotificationsController extends DBController {
             stmt.execute();
             stmt.close();
 
-            props.add(property);
-            notifyObservers();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
