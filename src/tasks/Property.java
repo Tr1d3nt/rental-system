@@ -43,7 +43,7 @@ public class Property {
 
     // constructor for parsing database
     public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
-            int furnished, String quadrant, String status, Date submitted, Date expiry) {
+            String furnished, String quadrant, String status, Date submitted, Date expiry) {
 
         this.propertyID = propertyID;
         this.landLordID = landLordID;
@@ -107,7 +107,7 @@ public class Property {
 
     }
 
-    public int getFurnished() {
+    public String getFurnished() {
         return this.furnished;
     }
 

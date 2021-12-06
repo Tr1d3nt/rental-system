@@ -5,6 +5,7 @@ import tasks.*;
 import java.sql.*;
 import java.util.*;
 
+
 import interfaces.Observer;
 import interfaces.Subject;
 
@@ -43,7 +44,7 @@ public class PropertyController extends DBController implements Subject {
             stmt.close();
 
             props.add(property);
-            notifyObservers();
+            //notifyObservers();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,7 +110,7 @@ public class PropertyController extends DBController implements Subject {
 
             }
 
-            notifyObservers();
+            //notifyObservers();
 
         } catch (SQLException e) {
 
@@ -128,7 +129,7 @@ public class PropertyController extends DBController implements Subject {
 
         for (int i = 0; i < observers.size(); i++) {
             Observer temp = observers.get(i);
-            temp.update(props);
+            //temp.update(props);
         }
 
     }
@@ -173,15 +174,15 @@ public class PropertyController extends DBController implements Subject {
     }
 
     public static void main(String[] args) {
-        PropertyController p = new PropertyController();
+        // PropertyController p = new PropertyController();
 
-        p.getAllProperty();
+        // p.getAllProperty();
 
-        for (int i = 0; i < p.getProp().size(); i++) {
+        // for (int i = 0; i < p.getProp().size(); i++) {
 
-            System.out.println(p.getProp().get(i).getPropertyID());
+        //     System.out.println(p.getProp().get(i).getPropertyID());
 
-        }
+        // }
 
     }
 
