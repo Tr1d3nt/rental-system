@@ -7,7 +7,7 @@ import java.util.*;
 
 public class PropertyController extends DBController {
 
-    private ArrayList<Property> properties = new ArrayList<Property>();
+    private ArrayList<Property> props = new ArrayList<Property>();
 
     public PropertyController() {
 
@@ -82,13 +82,23 @@ public class PropertyController extends DBController {
 
         try {
 
-            DatabaseMetaData d = dbConnect.getMetaData();
-            ResultSet r = d.getTables("rentalsystem", null, "%", null);
+            Statement stmt;
+            ResultSet set;
+            String query = "SELECT * FROM property";
+            stmt = dbConnect.createStatement();
+            set = stmt.executeQuery(query);
+            ResultSetMetaData setMetaData = set.getMetaData();
 
-            while (r.next()) {
-                if (r.getString(2).equalsIgnoreCase("property")) {
-                    System.out.println(r.getString(3));
-                }
+            while (set.next()) {
+
+                Property p = new Property(set.getInt("propertyID"), set.getInt("landlordID"),
+                        set.getString("address"), set.getString("type"), set.getInt("bedrooms"),
+                        set.getInt("bathrooms"), set.getInt("furnished"), set.getString("status"),
+                        set.getDate("submitted"),
+                        set.getDate("expiry"));
+
+                props.add(p);
+
             }
 
         } catch (SQLException e) {
@@ -97,6 +107,10 @@ public class PropertyController extends DBController {
 
         }
 
+    }
+
+    public ArrayList<Property> getProp() {
+        return props;
     }
 
     public void initializeConnection() {
@@ -125,9 +139,19 @@ public class PropertyController extends DBController {
 
     public static void main(String[] args) {
         PropertyController p = new PropertyController();
-        Property prop = new Property(1, 0, "123 street", "Apartment", 2, 1, 1, "NW");
+        for (int i = 0; i < 5; i++) {
+            Property prop = new Property(i, 0, "123 street", "Apartment", 2, 1, 1, "NW");
+            p.addProperty(prop);
+        }
 
-        p.addProperty(prop);
+        p.getAllProperty();
+
+        for (int i = 0; i < p.getProp().size(); i++) {
+
+            System.out.println(p.getProp().get(i).getPropertyID());
+
+        }
+
     }
 
 }

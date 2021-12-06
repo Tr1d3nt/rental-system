@@ -20,7 +20,7 @@ public class Property {
     private java.sql.Date expiry;
     private PropertyController propertyController;
 
-    // constructor
+    // contstructor for adding listing
     public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
             int furnished, String quadrant) {
 
@@ -38,6 +38,24 @@ public class Property {
         this.submitted = new java.sql.Date(System.currentTimeMillis());
         calendar.add(Calendar.MONTH, 1);
         this.expiry = new java.sql.Date(calendar.getTimeInMillis());
+
+    }
+
+    // constructor for parsing database
+    public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
+            int furnished, String quadrant, Date submitted, Date expiry) {
+
+        this.propertyID = propertyID;
+        this.landLordID = landLordID;
+        this.address = address;
+        this.type = type;
+        this.bedrooms = bed;
+        this.bathrooms = bath;
+        this.furnished = furnished;
+        this.quadrant = quadrant;
+        this.status = "Active";
+        this.submitted = submitted;
+        this.expiry = expiry;
 
     }
 
