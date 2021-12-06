@@ -32,7 +32,6 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
             String furnished, String quadrant, String renterID) {
 
         Notifications temp = new Notifications(bed, bath, type, furnished, quadrant, renterID);
-        notifs.add(temp);
         notificationsController.addNotification(temp);
 
     }

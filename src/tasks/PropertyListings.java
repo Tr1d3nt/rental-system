@@ -2,8 +2,6 @@ package tasks;
 
 import java.util.Vector;
 
-import javax.management.loading.PrivateClassLoader;
-
 import controllers.*;
 import interfaces.ObserverProperty;
 import interfaces.SubjectProperty;

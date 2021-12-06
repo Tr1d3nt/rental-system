@@ -32,6 +32,9 @@ public class NotificationsController extends DBController implements SubjectNoti
             stmt.setString(4, notification.getFurnished());
             stmt.setString(5, notification.getQuadrant());
 
+            notifications.add(notification);
+            notifyObservers();
+
             stmt.execute();
             stmt.close();
 
@@ -60,6 +63,7 @@ public class NotificationsController extends DBController implements SubjectNoti
                 notifications.add(notif);
 
             }
+            notifyObservers();
 
         } catch (SQLException e) {
 
