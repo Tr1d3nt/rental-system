@@ -5,13 +5,13 @@ import tasks.*;
 import java.sql.*;
 import java.util.*;
 
-import interfaces.Observer;
-import interfaces.Subject;
+import interfaces.ObserverProperty;
+import interfaces.SubjectProperty;
 
-public class PropertyController extends DBController implements Subject {
+public class PropertyController extends DBController implements SubjectProperty {
 
     private ArrayList<Property> props = new ArrayList<Property>();
-    private ArrayList<Observer> observers;
+    private ArrayList<ObserverProperty> observers;
 
     public PropertyController() {
 
@@ -103,7 +103,7 @@ public class PropertyController extends DBController implements Subject {
                         set.getInt("bathrooms"), set.getString("furnished"), set.getString("quadrant"),
                         set.getString("status"),
                         set.getDate("submitted"),
-                        set.getDate("expiry"));
+                        set.getDate("expiry"), set.getString("landlordName"));
 
                 props.add(p);
 
@@ -127,14 +127,14 @@ public class PropertyController extends DBController implements Subject {
     public void notifyObservers() {
 
         for (int i = 0; i < observers.size(); i++) {
-            Observer temp = observers.get(i);
+            ObserverProperty temp = observers.get(i);
             temp.update(props);
         }
 
     }
 
     @Override
-    public void attach(Observer o) {
+    public void attach(ObserverProperty o) {
 
         this.observers.add(o);
         o.update(props);
@@ -142,7 +142,7 @@ public class PropertyController extends DBController implements Subject {
     }
 
     @Override
-    public void remove(Observer o) {
+    public void remove(ObserverProperty o) {
 
         this.observers.remove(o);
 
