@@ -3,8 +3,12 @@ package controllers;
 import entity.*;
 import java.sql.*;
 
+import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
+
 
 public class LoginController extends DBController {
+
+    protected static int userID = 0;
 
     public LoginController(){
         initializeConnection();
@@ -27,39 +31,59 @@ public class LoginController extends DBController {
         }
     }
 
-    public void addUser(User user){
+    public void addUser(String username, String password, String userType){
         System.out.println("addUser method called.");
 
         try{
-            String query = "INSERT INTO user (userID, Email, Password, FirstName, LastName, userType)"
-                    + " VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO user (userID, Email, Password, userType)"
+                    + " VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = dbConnect.prepareStatement(query);
             
-            stmt.setInt(1, user.getUserId());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassWord());
-            stmt.setString(4, user.getFirstName());
-            stmt.setString(5, user.getLastName());
-            stmt.setString(6, user.getUserType());
+            stmt.setInt(1, userID++);
+            stmt.setString(2, username);
+            stmt.setString(3, password);
+            stmt.setString(4, userType);
+            
 
             stmt.execute();
             stmt.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
-        
-        
-        //Need to figure out how to access data from user.
     }
 
-    public boolean verifyUser(User user){
-        return true;
+    public boolean verifyUser(String username, String password, String userType){
+        ResultSet rs;
+        boolean isRegistered = false;
+        try{
+            String query = "SELECT * FROM user WHERE Email = (?) AND Password = (?) AND userType = (?)";
+            PreparedStatement stmt = dbConnect.prepareStatement(query);
+
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            stmt.setString(3, userType);
+
+            rs = stmt.executeQuery();
+            isRegistered = rs.next();
+            stmt.close();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return isRegistered;
     }
 
     public static void main(String[] args){
         LoginController lc = new LoginController();
-        User user = new LandLord("Cedric", "Acierto", "1234", "bababa@gmail.com");
 
-        lc.addUser(user);
+        boolean isRegistered = lc.verifyUser("def", "boom", "landlord");
+        
+        if(isRegistered){
+            System.out.println("Welcome!");
+        }
+        else{
+            System.out.println("Username or password is incorrect.");
+        }
+
     }
 }
