@@ -5,9 +5,13 @@ import tasks.*;
 import java.sql.*;
 import java.util.*;
 
-public class PropertyController extends DBController {
+import interfaces.Observer;
+import interfaces.Subject;
+
+public class PropertyController extends DBController implements Subject {
 
     private ArrayList<Property> props = new ArrayList<Property>();
+    private ArrayList<Observer> observers;
 
     public PropertyController() {
 
@@ -37,6 +41,9 @@ public class PropertyController extends DBController {
 
             stmt.execute();
             stmt.close();
+
+            props.add(property);
+            notifyObservers();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,6 +109,8 @@ public class PropertyController extends DBController {
 
             }
 
+            notifyObservers();
+
         } catch (SQLException e) {
 
             e.printStackTrace();
@@ -112,6 +121,31 @@ public class PropertyController extends DBController {
 
     public ArrayList<Property> getProp() {
         return props;
+    }
+
+    @Override
+    public void notifyObservers() {
+
+        for (int i = 0; i < observers.size(); i++) {
+            Observer temp = observers.get(i);
+            temp.update(props);
+        }
+
+    }
+
+    @Override
+    public void attach(Observer o) {
+
+        this.observers.add(o);
+        o.update(props);
+
+    }
+
+    @Override
+    public void remove(Observer o) {
+
+        this.observers.remove(o);
+
     }
 
     public void initializeConnection() {
