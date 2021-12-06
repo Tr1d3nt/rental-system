@@ -38,6 +38,10 @@ public class NotificationsController extends DBController implements SubjectNoti
             stmt.execute();
             stmt.close();
 
+
+            props.add(property);
+            notifyObservers();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

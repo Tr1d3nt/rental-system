@@ -11,7 +11,7 @@ import interfaces.SubjectProperty;
 public class PropertyController extends DBController implements SubjectProperty {
 
     private ArrayList<Property> props = new ArrayList<Property>();
-    private ArrayList<ObserverProperty> observers;
+    private ArrayList<ObserverProperty> observers = new ArrayList<ObserverProperty>();
 
     public PropertyController() {
 
@@ -44,7 +44,7 @@ public class PropertyController extends DBController implements SubjectProperty 
             stmt.close();
 
             props.add(property);
-            notifyObservers();
+            //notifyObservers();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,7 +110,7 @@ public class PropertyController extends DBController implements SubjectProperty 
 
             }
 
-            notifyObservers();
+            //notifyObservers();
 
         } catch (SQLException e) {
 
@@ -174,15 +174,15 @@ public class PropertyController extends DBController implements SubjectProperty 
     }
 
     public static void main(String[] args) {
-        PropertyController p = new PropertyController();
+        // PropertyController p = new PropertyController();
 
-        p.getAllProperty();
+        // p.getAllProperty();
 
-        for (int i = 0; i < p.getProp().size(); i++) {
+        // for (int i = 0; i < p.getProp().size(); i++) {
 
-            System.out.println(p.getProp().get(i).getPropertyID());
+        //     System.out.println(p.getProp().get(i).getPropertyID());
 
-        }
+        // }
 
     }
 

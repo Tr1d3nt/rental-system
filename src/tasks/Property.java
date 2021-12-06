@@ -47,6 +47,7 @@ public class Property {
     public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
             String furnished, String quadrant, String status, Date submitted, Date expiry, String landLordName) {
 
+
         this.propertyID = propertyID;
         this.landLordID = landLordID;
         this.address = address;
