@@ -66,7 +66,7 @@ public class PropertyController extends DBController {
         try {
             String query = "DELETE FROM property WHERE propertyID = ?";
             PreparedStatement stmt = dbConnect.prepareStatement(query);
-            stmt.setInt(0, 1);
+            stmt.setInt(1, propertyID);
 
             stmt.executeUpdate();
             stmt.close();
@@ -139,18 +139,15 @@ public class PropertyController extends DBController {
 
     public static void main(String[] args) {
         PropertyController p = new PropertyController();
-        for (int i = 0; i < 5; i++) {
-            Property prop = new Property(i, 0, "123 street", "Apartment", 2, 1, 1, "NW");
-            p.addProperty(prop);
-        }
 
         p.getAllProperty();
 
-        for (int i = 0; i < p.getProp().size(); i++) {
+        for(int i = 0; i < p.getProp().size(); i++){
 
             System.out.println(p.getProp().get(i).getPropertyID());
 
         }
+
 
     }
 
