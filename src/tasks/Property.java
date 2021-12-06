@@ -90,6 +90,10 @@ public class Property {
         return this.propertyID;
     }
 
+    public String getLandlordName() {
+        return this.landLordName;
+    }
+
     public int getLandlordID() {
         return this.landLordID;
     }
