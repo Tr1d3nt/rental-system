@@ -5,9 +5,13 @@ import tasks.*;
 import java.sql.*;
 import java.util.*;
 
-public class PropertyController extends DBController {
+import interfaces.Observer;
+import interfaces.Subject;
 
-    private ArrayList<Property> properties = new ArrayList<Property>();
+public class PropertyController extends DBController implements Subject {
+
+    private ArrayList<Property> props = new ArrayList<Property>();
+    private ArrayList<Observer> observers;
 
     public PropertyController() {
 
@@ -29,7 +33,7 @@ public class PropertyController extends DBController {
             stmt.setString(4, property.getType());
             stmt.setInt(5, property.getBedandBath()[0]);
             stmt.setInt(6, property.getBedandBath()[1]);
-            stmt.setInt(7, property.getFurnished());
+            stmt.setString(7, property.getFurnished());
             stmt.setString(8, property.getQuadrant());
             stmt.setString(9, property.getStatus());
             stmt.setDate(10, property.getSubmitted());
@@ -37,6 +41,9 @@ public class PropertyController extends DBController {
 
             stmt.execute();
             stmt.close();
+
+            props.add(property);
+            notifyObservers();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,7 +73,7 @@ public class PropertyController extends DBController {
         try {
             String query = "DELETE FROM property WHERE propertyID = ?";
             PreparedStatement stmt = dbConnect.prepareStatement(query);
-            stmt.setInt(0, 1);
+            stmt.setInt(1, propertyID);
 
             stmt.executeUpdate();
             stmt.close();
@@ -82,20 +89,62 @@ public class PropertyController extends DBController {
 
         try {
 
-            DatabaseMetaData d = dbConnect.getMetaData();
-            ResultSet r = d.getTables("rentalsystem", null, "%", null);
+            Statement stmt;
+            ResultSet set;
+            String query = "SELECT * FROM property";
+            stmt = dbConnect.createStatement();
+            set = stmt.executeQuery(query);
+            ResultSetMetaData setMetaData = set.getMetaData();
 
-            while (r.next()) {
-                if (r.getString(2).equalsIgnoreCase("property")) {
-                    System.out.println(r.getString(3));
-                }
+            while (set.next()) {
+
+                Property p = new Property(set.getInt("propertyID"), set.getInt("landlordID"),
+                        set.getString("address"), set.getString("type"), set.getInt("bedrooms"),
+                        set.getInt("bathrooms"), set.getString("furnished"), set.getString("quadrant"),
+                        set.getString("status"),
+                        set.getDate("submitted"),
+                        set.getDate("expiry"));
+
+                props.add(p);
+
             }
+
+            notifyObservers();
 
         } catch (SQLException e) {
 
             e.printStackTrace();
 
         }
+
+    }
+
+    public ArrayList<Property> getProp() {
+        return props;
+    }
+
+    @Override
+    public void notifyObservers() {
+
+        for (int i = 0; i < observers.size(); i++) {
+            Observer temp = observers.get(i);
+            temp.update(props);
+        }
+
+    }
+
+    @Override
+    public void attach(Observer o) {
+
+        this.observers.add(o);
+        o.update(props);
+
+    }
+
+    @Override
+    public void remove(Observer o) {
+
+        this.observers.remove(o);
 
     }
 
@@ -125,9 +174,15 @@ public class PropertyController extends DBController {
 
     public static void main(String[] args) {
         PropertyController p = new PropertyController();
-        Property prop = new Property(1, 0, "123 street", "Apartment", 2, 1, 1, "NW");
 
-        p.addProperty(prop);
+        p.getAllProperty();
+
+        for (int i = 0; i < p.getProp().size(); i++) {
+
+            System.out.println(p.getProp().get(i).getPropertyID());
+
+        }
+
     }
 
 }

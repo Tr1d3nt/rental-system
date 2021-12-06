@@ -17,7 +17,7 @@ public class LandLord extends User {
     }
 
     public void listProperty(int propertyID, String address, String type, int bed, int bath,
-            int furnished, String quadrant, Boolean feePaid) {
+            String furnished, String quadrant, Boolean feePaid) {
 
         this.property = new Property(propertyID, this.userID, address, type, bed, bath, furnished, quadrant);
         property.addProperty(feePaid);

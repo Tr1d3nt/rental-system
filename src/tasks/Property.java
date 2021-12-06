@@ -13,16 +13,16 @@ public class Property {
     private String type;
     private int bedrooms;
     private int bathrooms;
-    private int furnished;
+    private String furnished;
     private String quadrant;
     private String status;
     private java.sql.Date submitted;
     private java.sql.Date expiry;
     private PropertyController propertyController;
 
-    // constructor
+    // contstructor for adding listing
     public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
-            int furnished, String quadrant) {
+            String furnished, String quadrant) {
 
         this.propertyID = propertyID;
         this.landLordID = landLordID;
@@ -38,6 +38,24 @@ public class Property {
         this.submitted = new java.sql.Date(System.currentTimeMillis());
         calendar.add(Calendar.MONTH, 1);
         this.expiry = new java.sql.Date(calendar.getTimeInMillis());
+
+    }
+
+    // constructor for parsing database
+    public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
+            int furnished, String quadrant, String status, Date submitted, Date expiry) {
+
+        this.propertyID = propertyID;
+        this.landLordID = landLordID;
+        this.address = address;
+        this.type = type;
+        this.bedrooms = bed;
+        this.bathrooms = bath;
+        this.furnished = furnished;
+        this.quadrant = quadrant;
+        this.status = status;
+        this.submitted = submitted;
+        this.expiry = expiry;
 
     }
 
