@@ -7,8 +7,8 @@ import java.util.*;
 
 public class PropertyListings {
 
-    PropertyController p;
-    Vector<Vector<String>> propertyListing = new Vector<Vector<String>>();
+    private PropertyController p = new PropertyController();
+    private Vector<Vector<String>> propertyListing = new Vector<Vector<String>>();
 
     public void setPropertyListing() {
 
@@ -40,7 +40,6 @@ public class PropertyListings {
             listing.add(bathrooms);
             listing.add(isFurnished);
             listing.add(quadrant);
-            listing.add(quadrant);
             listing.add(status);
             listing.add(submitted);
 
@@ -67,10 +66,11 @@ public class PropertyListings {
         listing.setPropertyListing();
         for (int i = 0; i < listing.getPropertyListing().size(); i++) {
 
-            for (int j = 0; j < listing.getPropertyListing().get(i).size(); i++) {
 
-                System.out.println(listing.getPropertyListing().get(i).get(j));
-            }
+
+                System.out.println(listing.getPropertyListing().get(i).toString());
+
+
 
         }
 

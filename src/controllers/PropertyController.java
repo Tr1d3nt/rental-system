@@ -93,7 +93,8 @@ public class PropertyController extends DBController {
 
                 Property p = new Property(set.getInt("propertyID"), set.getInt("landlordID"),
                         set.getString("address"), set.getString("type"), set.getInt("bedrooms"),
-                        set.getInt("bathrooms"), set.getInt("furnished"), set.getString("status"),
+                        set.getInt("bathrooms"), set.getInt("furnished"), set.getString("quadrant"),
+                        set.getString("status"),
                         set.getDate("submitted"),
                         set.getDate("expiry"));
 
