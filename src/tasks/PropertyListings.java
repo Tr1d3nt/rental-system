@@ -2,22 +2,20 @@ package tasks;
 
 import java.util.Vector;
 
-import javax.management.loading.PrivateClassLoader;
-
 import controllers.*;
-import interfaces.Observer;
-import interfaces.Subject;
+import interfaces.ObserverProperty;
+import interfaces.SubjectProperty;
 
 import java.util.*;
 
-public class PropertyListings implements Observer {
+public class PropertyListings implements ObserverProperty {
 
     private PropertyController p = new PropertyController();
     private Vector<Vector<String>> propertyListing = new Vector<Vector<String>>();
     private ArrayList<Property> properties;
-    private Subject subject;
+    private SubjectProperty subject;
 
-    public PropertyListings(Subject s) {
+    public PropertyListings(SubjectProperty s) {
         subject = s;
         subject.attach(this);
     }
@@ -28,6 +26,7 @@ public class PropertyListings implements Observer {
 
     public void setPropertyListing() {
 
+        propertyListing.clear();
         for (int i = 0; i < p.getProp().size(); i++) {
             // new vector for each listing
             Vector<String> listing = new Vector<String>();

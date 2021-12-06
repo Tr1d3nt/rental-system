@@ -59,6 +59,7 @@ DROP TABLE IF EXISTS `rentalsystem`.`property` ;
 CREATE TABLE IF NOT EXISTS `rentalsystem`.`property` (
   `propertyID` INT NOT NULL,
   `landLordID` INT NULL DEFAULT NULL,
+  `landlordName` VARCHAR(300) NULL DEFAULT NULL,
   `address` VARCHAR(300) NULL DEFAULT NULL,
   `type` VARCHAR(45) NULL DEFAULT NULL,
   `bedrooms` INT NULL DEFAULT NULL,

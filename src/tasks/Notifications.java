@@ -1,7 +1,5 @@
 package tasks;
 
-import controllers.*;
-
 public class Notifications {
 
     private int bedrooms;
@@ -10,7 +8,6 @@ public class Notifications {
     private String furnished;
     private String quadrant;
     private int renterID;
-    private NotificationsController notificationsController;
 
     public Notifications(String bed, String bath, String type,
             String furnished, String quadrant, String renterID) {
@@ -21,8 +18,6 @@ public class Notifications {
         this.furnished = furnished;
         this.quadrant = quadrant;
         this.renterID = Integer.parseInt(renterID);
-
-        notificationsController.addNotification(this);
 
     }
 
