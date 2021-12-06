@@ -27,7 +27,7 @@ public class PropertyListings implements ObserverProperty {
     public void setPropertyListing() {
 
         propertyListing.clear();
-        for (int i = 0; i < p.getProp().size(); i++) {
+        for (int i = 0; i < properties.size(); i++) {
             // new vector for each listing
             Vector<String> listing = new Vector<String>();
             // Integer type to hold integers for conversion to String

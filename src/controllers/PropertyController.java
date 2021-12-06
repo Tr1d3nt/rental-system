@@ -11,7 +11,7 @@ import interfaces.SubjectProperty;
 public class PropertyController extends DBController implements SubjectProperty {
 
     private ArrayList<Property> props = new ArrayList<Property>();
-    private ArrayList<ObserverProperty> observers;
+    private ArrayList<ObserverProperty> observers = new ArrayList<ObserverProperty>();
 
     public PropertyController() {
 
@@ -24,7 +24,7 @@ public class PropertyController extends DBController implements SubjectProperty 
         try {
 
             String query = "INSERT INTO property (propertyID, landLordID, landlordName, address, type, bedrooms, bathrooms, furnished, quadrant, status, submitted, expiry)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = dbConnect.prepareStatement(query);
             stmt.setInt(1, property.getPropertyID());
@@ -57,8 +57,8 @@ public class PropertyController extends DBController implements SubjectProperty 
         try {
             String query = "UPDATE property SET status = ? WHERE propertyID = ?";
             PreparedStatement stmt = dbConnect.prepareStatement(query);
-            stmt.setString(0, status);
-            stmt.setInt(1, propertyID);
+            stmt.setString(1, status);
+            stmt.setInt(2, propertyID);
             notifyObservers();
 
             stmt.executeUpdate();
