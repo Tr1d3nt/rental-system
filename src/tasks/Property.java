@@ -9,6 +9,7 @@ public class Property {
 
     private int propertyID;
     private int landLordID;
+    private String landLordName;
     private String address;
     private String type;
     private int bedrooms;
@@ -22,7 +23,7 @@ public class Property {
 
     // contstructor for adding listing
     public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
-            String furnished, String quadrant) {
+            String furnished, String quadrant, String landLordName) {
 
         this.propertyID = propertyID;
         this.landLordID = landLordID;
@@ -32,6 +33,7 @@ public class Property {
         this.bathrooms = bath;
         this.furnished = furnished;
         this.quadrant = quadrant;
+        this.landLordName = landLordName;
         this.status = "Active";
 
         Calendar calendar = Calendar.getInstance();
@@ -43,7 +45,7 @@ public class Property {
 
     // constructor for parsing database
     public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
-            String furnished, String quadrant, String status, Date submitted, Date expiry) {
+            String furnished, String quadrant, String status, Date submitted, Date expiry, String landLordName) {
 
         this.propertyID = propertyID;
         this.landLordID = landLordID;
@@ -56,6 +58,7 @@ public class Property {
         this.status = status;
         this.submitted = submitted;
         this.expiry = expiry;
+        this.landLordName = landLordName;
 
     }
 
