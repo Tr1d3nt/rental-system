@@ -29,7 +29,7 @@ public class PropertyController extends DBController {
             stmt.setString(4, property.getType());
             stmt.setInt(5, property.getBedandBath()[0]);
             stmt.setInt(6, property.getBedandBath()[1]);
-            stmt.setInt(7, property.getFurnished());
+            stmt.setString(7, property.getFurnished());
             stmt.setString(8, property.getQuadrant());
             stmt.setString(9, property.getStatus());
             stmt.setDate(10, property.getSubmitted());

@@ -21,14 +21,13 @@ public class PropertyListings {
             Integer propID = p.getProp().get(i).getPropertyID();
             Integer bed = p.getProp().get(i).getBedandBath()[0];
             Integer bath = p.getProp().get(i).getBedandBath()[1];
-            Integer furnished = p.getProp().get(i).getFurnished();
             // All the relevant information
             String propertyID = propID.toString();
             String address = p.getProp().get(i).getAddress();
             String type = p.getProp().get(i).getType();
             String bedrooms = bed.toString();
             String bathrooms = bath.toString();
-            String isFurnished = furnished.toString();
+            String isFurnished = p.getProp().get(i).getFurnished();
             String quadrant = p.getProp().get(i).getQuadrant();
             String status = p.getProp().get(i).getStatus();
             String submitted = p.getProp().get(i).getSubmitted().toString();
@@ -66,11 +65,7 @@ public class PropertyListings {
         listing.setPropertyListing();
         for (int i = 0; i < listing.getPropertyListing().size(); i++) {
 
-
-
-                System.out.println(listing.getPropertyListing().get(i).toString());
-
-
+            System.out.println(listing.getPropertyListing().get(i).toString());
 
         }
 
