@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `rentalsystem`.`property` (
   `type` VARCHAR(45) NULL DEFAULT NULL,
   `bedrooms` INT NULL DEFAULT NULL,
   `bathrooms` INT NULL DEFAULT NULL,
-  `furnished` INT NULL DEFAULT NULL,
+  `furnished` VARCHAR(3) NULL DEFAULT NULL,
   `quadrant` VARCHAR(2) NULL DEFAULT NULL,
   `status` VARCHAR(45) NULL DEFAULT NULL,
   `submitted` DATE NULL DEFAULT NULL,

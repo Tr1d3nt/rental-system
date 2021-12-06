@@ -93,7 +93,7 @@ public class PropertyController extends DBController {
 
                 Property p = new Property(set.getInt("propertyID"), set.getInt("landlordID"),
                         set.getString("address"), set.getString("type"), set.getInt("bedrooms"),
-                        set.getInt("bathrooms"), set.getInt("furnished"), set.getString("quadrant"),
+                        set.getInt("bathrooms"), set.getString("furnished"), set.getString("quadrant"),
                         set.getString("status"),
                         set.getDate("submitted"),
                         set.getDate("expiry"));
@@ -143,12 +143,11 @@ public class PropertyController extends DBController {
 
         p.getAllProperty();
 
-        for(int i = 0; i < p.getProp().size(); i++){
+        for (int i = 0; i < p.getProp().size(); i++) {
 
             System.out.println(p.getProp().get(i).getPropertyID());
 
         }
-
 
     }
 

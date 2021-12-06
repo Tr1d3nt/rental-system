@@ -13,7 +13,7 @@ public class Property {
     private String type;
     private int bedrooms;
     private int bathrooms;
-    private int furnished;
+    private String furnished;
     private String quadrant;
     private String status;
     private java.sql.Date submitted;
@@ -22,7 +22,7 @@ public class Property {
 
     // contstructor for adding listing
     public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
-            int furnished, String quadrant) {
+            String furnished, String quadrant) {
 
         this.propertyID = propertyID;
         this.landLordID = landLordID;
