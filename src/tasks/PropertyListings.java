@@ -3,8 +3,7 @@ package tasks;
 import java.util.Vector;
 
 import controllers.*;
-import interfaces.ObserverProperty;
-import interfaces.SubjectProperty;
+import interfaces.*;
 
 import java.util.*;
 

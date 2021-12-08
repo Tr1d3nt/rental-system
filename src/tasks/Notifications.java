@@ -19,6 +19,7 @@ public class Notifications {
         this.quadrant = quadrant;
         this.renterID = Integer.parseInt(renterID);
 
+
     }
 
     public int getBedroom() {

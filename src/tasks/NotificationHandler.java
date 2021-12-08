@@ -19,9 +19,10 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
     public NotificationHandler(SubjectNotification sNotification, SubjectProperty sProperty) {
 
-        notificationsController.getAllNotifications();
         this.subjectNotification = sNotification;
         this.subjectProperty = sProperty;
+
+        notificationsController.getAllNotifications();
 
         subjectProperty.attach(this);
         subjectNotification.attach(this);
@@ -49,7 +50,6 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
         for (int i = 0; i < notifs.size(); i++) {
 
             if (id == notifs.get(i).getID()) {
-
                 bed = notifs.get(i).getBedroom();
                 bath = notifs.get(i).getBathroom();
                 type = notifs.get(i).getType();
@@ -59,15 +59,12 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
             }
 
         }
-
         for (int i = 0; i < properties.size(); i++) {
-
             if (properties.get(i).getBedandBath()[0] == bed &&
                     properties.get(i).getBedandBath()[1] == bath &&
                     properties.get(i).getType().equals(type) &&
                     properties.get(i).getFurnished().equals(furnished) &&
                     properties.get(i).getQuadrant().equals(quadrant)) {
-
                 Vector<String> listings = new Vector<String>();
 
                 // Integer type to hold integers for conversion to String
@@ -106,11 +103,9 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
     public boolean hasNotification(String userID) {
 
         int id = Integer.parseInt(userID);
-
         for (int i = 0; i < notifs.size(); i++) {
 
             if (notifs.get(i).getID() == id) {
-
                 return true;
             }
 

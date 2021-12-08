@@ -4,8 +4,7 @@ import tasks.*;
 import java.sql.*;
 import java.util.*;
 
-import interfaces.ObserverNotification;
-import interfaces.SubjectNotification;
+import interfaces.*;
 
 public class NotificationsController extends DBController implements SubjectNotification {
 
@@ -14,6 +13,8 @@ public class NotificationsController extends DBController implements SubjectNoti
 
     public NotificationsController() {
         initializeConnection();
+
+        getAllNotifications();
     }
 
     public void addNotification(Notifications notification) {
@@ -25,22 +26,18 @@ public class NotificationsController extends DBController implements SubjectNoti
 
             PreparedStatement stmt = dbConnect.prepareStatement(query);
 
-            stmt.setInt(0, notification.getID());
-            stmt.setString(1, notification.getType());
-            stmt.setInt(2, notification.getBedroom());
-            stmt.setInt(3, notification.getBathroom());
-            stmt.setString(4, notification.getFurnished());
-            stmt.setString(5, notification.getQuadrant());
+            stmt.setInt(1, notification.getID());
+            stmt.setString(2, notification.getType());
+            stmt.setInt(3, notification.getBedroom());
+            stmt.setInt(4, notification.getBathroom());
+            stmt.setString(5, notification.getFurnished());
+            stmt.setString(6, notification.getQuadrant());
 
             notifications.add(notification);
             notifyObservers();
 
             stmt.execute();
             stmt.close();
-
-
-            props.add(property);
-            notifyObservers();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,8 +63,12 @@ public class NotificationsController extends DBController implements SubjectNoti
 
                 notifications.add(notif);
 
+
             }
+
             notifyObservers();
+            stmt.close();
+            set.close();
 
         } catch (SQLException e) {
 
