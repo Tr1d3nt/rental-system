@@ -29,9 +29,9 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
     }
 
     public void addNotification(String bed, String bath, String type,
-            String furnished, String quadrant, String renterID, String status) {
+            String furnished, String quadrant, String renterUserName, String status) {
 
-        Notifications temp = new Notifications(bed, bath, type, furnished, quadrant, renterID, status);
+        Notifications temp = new Notifications(bed, bath, type, furnished, quadrant, renterUserName, status);
         notificationsController.addNotification(temp);
 
     }
@@ -55,9 +55,13 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
                 furnished = notifs.get(i).getFurnished();
                 quadrant = notifs.get(i).getQuadrant();
 
+                System.out.println("Preferences are" + bed + " " + bath + " " + type + " " + furnished + " " + quadrant);
+
             }
 
         }
+
+        System.out.println(properties.size());
 
         for (int i = 0; i < properties.size(); i++) {
 
@@ -70,11 +74,9 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
                 Vector<String> listings = new Vector<String>();
 
                 // Integer type to hold integers for conversion to String
-                Integer propID = properties.get(i).getPropertyID();
                 Integer intBed = properties.get(i).getBedandBath()[0];
                 Integer intBath = properties.get(i).getBedandBath()[1];
                 // All the relevant information
-                String propertyID = propID.toString();
                 String address = properties.get(i).getAddress();
                 String bedrooms = intBed.toString();
                 String bathrooms = intBath.toString();
@@ -83,15 +85,13 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
                 String status = properties.get(i).getStatus();
                 String submitted = properties.get(i).getSubmitted().toString();
 
-                listings.add(propertyID);
                 listings.add(address);
                 listings.add(type);
                 listings.add(bedrooms);
                 listings.add(bathrooms);
+                listings.add(status);
                 listings.add(isFurnished);
                 listings.add(quadrant_);
-                listings.add(status);
-                listings.add(submitted);
 
                 result.add(listings);
 

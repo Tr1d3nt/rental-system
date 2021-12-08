@@ -53,7 +53,7 @@ public class PropertyController extends DBController implements SubjectProperty 
             stmt.close();
 
             props.add(property);
-            //notifyObservers();
+            notifyObservers();
 
         } catch (SQLException e) {
             e.printStackTrace();

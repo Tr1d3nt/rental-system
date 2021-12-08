@@ -1760,7 +1760,7 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         if(access.equals("Renter")){
-          //  populateTable(jTable4);
+           populateTable(jTable4, notificationHandler.notifyProperties(username));
             notificationsP.setVisible(true);
             summaryReportP.setVisible(false);
             editListingsP.setVisible(false);
