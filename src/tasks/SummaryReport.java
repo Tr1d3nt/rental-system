@@ -123,6 +123,7 @@ public class SummaryReport {
         Property p3 = new Property(2, 2, "address3", "condo", 2, 2, "yes", "NE", "inactive", d5, d6, "Landlord3");
 
 
+
         //pc.addProperty(p1);
         // pc.addProperty(p2);
         // pc.addProperty(p3);
