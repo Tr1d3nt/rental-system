@@ -25,16 +25,10 @@ public class SummaryReport {
         
         for(int i = 0; i < propertyController.getProp().size(); i++){
             Property temp = propertyController.getProp().get(i);
-            int intLandLordId = temp.getLandlordID();
-            
-
-            
-            String landlordId = Integer.toString(temp.getLandlordID());
             String houseId = Integer.toString(temp.getPropertyID());
             String address = temp.getAddress();
 
             ArrayList<String> inside = new ArrayList<>();
-            inside.add(landlordId);
             inside.add(houseId);
             inside.add(address);
 

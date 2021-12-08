@@ -56,7 +56,7 @@ public class LoginController extends DBController {
         ResultSet rs;
         boolean isRegistered = false;
         try{
-            String query = "SELECT * FROM user WHERE Email = (?) AND Password = (?) AND userType = (?)";
+            String query = "SELECT * FROM user WHERE userName = (?) AND Password = (?) AND userType = (?)";
             PreparedStatement stmt = dbConnect.prepareStatement(query);
 
             stmt.setString(1, username);

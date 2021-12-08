@@ -40,6 +40,7 @@ DROP TABLE IF EXISTS `rentalsystem`.`notifications` ;
 
 CREATE TABLE IF NOT EXISTS `rentalsystem`.`notifications` (
   `renterID` INT NOT NULL,
+  `renterUserName` VARCHAR(300) NULL DEFAULT NULL,
   `type` VARCHAR(45) NULL DEFAULT NULL,
   `bedrooms` INT NULL DEFAULT NULL,
   `bathrooms` INT NULL DEFAULT NULL,
@@ -58,8 +59,7 @@ DROP TABLE IF EXISTS `rentalsystem`.`property` ;
 
 CREATE TABLE IF NOT EXISTS `rentalsystem`.`property` (
   `propertyID` INT NOT NULL,
-  `landLordID` INT NULL DEFAULT NULL,
-  `landlordName` VARCHAR(300) NULL DEFAULT NULL,
+  `landlordEmail` VARCHAR(300) NULL DEFAULT NULL,
   `address` VARCHAR(300) NULL DEFAULT NULL,
   `type` VARCHAR(45) NULL DEFAULT NULL,
   `bedrooms` INT NULL DEFAULT NULL,
@@ -82,10 +82,8 @@ DROP TABLE IF EXISTS `rentalsystem`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `rentalsystem`.`user` (
   `userID` INT NOT NULL,
-  `Email` VARCHAR(100) NULL DEFAULT NULL,
+  `userName` VARCHAR(100) NULL DEFAULT NULL,
   `Password` VARCHAR(45) NULL DEFAULT NULL,
-  `FirstName` VARCHAR(45) NULL DEFAULT NULL,
-  `LastName` VARCHAR(45) NULL DEFAULT NULL,
   `userType` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`userID`))
 ENGINE = InnoDB

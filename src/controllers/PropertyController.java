@@ -12,33 +12,42 @@ public class PropertyController extends DBController implements SubjectProperty 
 
     private ArrayList<Property> props = new ArrayList<Property>();
     private ArrayList<ObserverProperty> observers = new ArrayList<ObserverProperty>();
+    static private int id = 0;
+
+
+    public void increment(){
+        id++;
+    }
+
+
 
     public PropertyController() {
-
         initializeConnection();
-
+        getAllProperty();
+        setId();
     }
 
     public void addProperty(Property property) {
 
         try {
 
-            String query = "INSERT INTO property (propertyID, landLordID, landlordName, address, type, bedrooms, bathrooms, furnished, quadrant, status, submitted, expiry)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO property (propertyID, landlordEmail, address, type, bedrooms, bathrooms, furnished, quadrant, status, submitted, expiry)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 
             PreparedStatement stmt = dbConnect.prepareStatement(query);
-            stmt.setInt(1, property.getPropertyID());
-            stmt.setInt(2, property.getLandlordID());
-            stmt.setString(3, property.getLandlordName());
-            stmt.setString(4, property.getAddress());
-            stmt.setString(5, property.getType());
-            stmt.setInt(6, property.getBedandBath()[0]);
-            stmt.setInt(7, property.getBedandBath()[1]);
-            stmt.setString(8, property.getFurnished());
-            stmt.setString(9, property.getQuadrant());
-            stmt.setString(10, property.getStatus());
-            stmt.setDate(11, property.getSubmitted());
-            stmt.setDate(12, property.getExpiry());
+            stmt.setInt(1, id);
+            stmt.setString(2, property.getEmail());
+            stmt.setString(3, property.getAddress());
+            stmt.setString(4, property.getType());
+            stmt.setInt(5, property.getBedandBath()[0]);
+            stmt.setInt(6, property.getBedandBath()[1]);
+            stmt.setString(7, property.getFurnished());
+            stmt.setString(8, property.getQuadrant());
+            stmt.setString(9, property.getStatus());
+            stmt.setDate(10, property.getSubmitted());
+            stmt.setDate(11, property.getExpiry());
+            increment();
 
             stmt.execute();
             stmt.close();
@@ -99,16 +108,18 @@ public class PropertyController extends DBController implements SubjectProperty 
             set = stmt.executeQuery(query);
             while (set.next()) {
 
-                Property p = new Property(set.getInt("propertyID"), set.getInt("landlordID"),
+                Property p = new Property(set.getInt("propertyID"), set.getString("landlordEmail"),
                         set.getString("address"), set.getString("type"), set.getInt("bedrooms"),
                         set.getInt("bathrooms"), set.getString("furnished"), set.getString("quadrant"),
                         set.getString("status"),
                         set.getDate("submitted"),
-                        set.getDate("expiry"), set.getString("landlordName"));
+                        set.getDate("expiry"));
 
                 props.add(p);
 
             }
+
+            id = props.get(props.size()-1).getPropertyID() + 1;
 
             //notifyObservers();
 
@@ -117,6 +128,13 @@ public class PropertyController extends DBController implements SubjectProperty 
             e.printStackTrace();
 
         }
+
+    }
+
+    // function to get most recent property key in database
+    public void setId(){
+
+        id = props.get(props.size()-1).getPropertyID() + 1;
 
     }
 
