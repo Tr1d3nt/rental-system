@@ -34,24 +34,18 @@
       <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/boundries/Dashboard$ButtonEditor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/boundries/Dashboard$ButtonEditor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/boundries/Dashboard$ButtonRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/boundries/Dashboard$ButtonRenderer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/boundries/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/boundries/Dashboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/controllers/DBController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/controllers/DBController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/controllers/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/controllers/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/controllers/NotificationsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/controllers/NotificationsController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/controllers/PropertyController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/controllers/PropertyController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/entity/LandLord.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/entity/LandLord.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/Property.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/Property.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/PropertyListings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/PropertyListings.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/SummaryReport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/SummaryReport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/NotificationHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/NotificationHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/Notifications.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ensf480termproject/tasks/Notifications.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source-files/rentalsystem.sql" beforeDir="false" afterPath="$PROJECT_DIR$/source-files/rentalsystem.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boundries/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boundries/Dashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/DBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/DBController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/NotificationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/NotificationsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/PropertyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/PropertyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/LandLord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/LandLord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/PropertyListings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/PropertyListings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/SummaryReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/SummaryReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tasks/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/NotificationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/NotificationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/Notifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/Notifications.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

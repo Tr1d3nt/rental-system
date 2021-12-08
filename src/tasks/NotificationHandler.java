@@ -29,17 +29,16 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
     }
 
     public void addNotification(String bed, String bath, String type,
-            String furnished, String quadrant, String renterID) {
+            String furnished, String quadrant, String renterID, String status) {
 
-        Notifications temp = new Notifications(bed, bath, type, furnished, quadrant, renterID);
+        Notifications temp = new Notifications(bed, bath, type, furnished, quadrant, renterID, status);
         notificationsController.addNotification(temp);
 
     }
 
-    public Vector<Vector<String>> notifyProperties(String userID) {
+    public Vector<Vector<String>> notifyProperties(String userName) {
 
         Vector<Vector<String>> result = new Vector<Vector<String>>();
-        int id = Integer.parseInt(userID);
         int bed = 0;
         int bath = 0;
         String type = "";
@@ -48,7 +47,7 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
         for (int i = 0; i < notifs.size(); i++) {
 
-            if (id == notifs.get(i).getID()) {
+            if (userName.equals(notifs.get(i).getRenterUserName())) {
 
                 bed = notifs.get(i).getBedroom();
                 bath = notifs.get(i).getBathroom();
@@ -103,13 +102,12 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
     }
 
-    public boolean hasNotification(String userID) {
+    public boolean hasNotification(String userName) {
 
-        int id = Integer.parseInt(userID);
 
         for (int i = 0; i < notifs.size(); i++) {
 
-            if (notifs.get(i).getID() == id) {
+            if (notifs.get(i).getRenterUserName().equals(userName)) {
 
                 return true;
             }

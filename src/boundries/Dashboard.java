@@ -2,7 +2,9 @@
 package boundries;
 
 import controllers.LoginController;
+import controllers.NotificationsController;
 import controllers.PropertyController;
+import tasks.NotificationHandler;
 import tasks.Property;
 import tasks.PropertyListings;
 
@@ -26,9 +28,11 @@ public class Dashboard extends javax.swing.JFrame {
     JButton button = new JButton();
     // add the variables
     private Contact contact;
-    LoginController loginController = new LoginController();
-    PropertyController propertyController = new PropertyController();
-    PropertyListings propertyListings;
+    private LoginController loginController = new LoginController();
+    private PropertyController propertyController = new PropertyController();
+    private PropertyListings propertyListings;
+    private NotificationsController notificationsController = new NotificationsController();
+    private NotificationHandler notificationHandler;
 
 
     /**
@@ -45,6 +49,7 @@ public class Dashboard extends javax.swing.JFrame {
         summaryReportP.setVisible(false);
         notificationsP.setVisible(false);
         propertyListings = new PropertyListings(propertyController);
+        notificationHandler = new NotificationHandler(notificationsController, propertyController);
     }
 
     /**
@@ -1783,6 +1788,8 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
         String furnished = furnishedDD1.getSelectedItem().toString();
         String status = statusDD1.getSelectedItem().toString();
         String quadrant = quadrantDD1.getSelectedItem().toString();
+
+        notificationHandler.addNotification(bedrooms, bathrooms, type, furnished, quadrant, username, status);
         
         
     }//GEN-LAST:event_setprefrenceBMouseClicked

@@ -119,8 +119,6 @@ public class PropertyController extends DBController implements SubjectProperty 
 
             }
 
-            id = props.get(props.size()-1).getPropertyID() + 1;
-
             //notifyObservers();
 
         } catch (SQLException e) {
@@ -133,8 +131,10 @@ public class PropertyController extends DBController implements SubjectProperty 
 
     // function to get most recent property key in database
     public void setId(){
+        if(props.size() != 0) {
+            id = props.get(props.size()-1).getPropertyID() + 1;
+        }
 
-        id = props.get(props.size()-1).getPropertyID() + 1;
 
     }
 
