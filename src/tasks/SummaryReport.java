@@ -63,8 +63,8 @@ public class SummaryReport {
         Date d2 = new Date(2000000000L);
         Date d3 = new Date(3000000000L);
         Date d4 = new Date(4000000000L);
-        Property p1 = new Property(0, 0, "address1", "apartment", 3, 3, "yes", "NW", "active", d1, d2);
-        Property p2 = new Property(1, 1, "address2", "house", 2, 1, "no", "SW", "rented", d3, d4);
+        //Property p1 = new Property(0, 0, "address1", "apartment", 3, 3, "yes", "NW", "active", d1, d2);
+       // Property p2 = new Property(1, 1, "address2", "house", 2, 1, "no", "SW", "rented", d3, d4);
 
         //pc.addProperty(p1);
         //pc.addProperty(p2);

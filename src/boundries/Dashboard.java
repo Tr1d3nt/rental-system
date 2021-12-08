@@ -19,6 +19,7 @@ public class Dashboard extends javax.swing.JFrame {
     protected String username, access = "";
     JButton button = new JButton();
     private Contact contact;
+
     /**
      * Creates new form Dashboard
      */
@@ -1458,7 +1459,7 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
 
-        populateTable(jTable1);
+        populateTable(jTable1); // Table for listing
         jTable1.getColumn("Contact").setCellRenderer(new ButtonRenderer());
         jTable1.getColumn("Contact").setCellEditor(new ButtonEditor(new JCheckBox()));
         
@@ -1538,7 +1539,7 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
   
     private void filterListingsBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterListingsBMouseClicked
         //fetch inputs from user (to be used in notifications)
-        
+        // table for Filtering
         String type = typeDD.getSelectedItem().toString();
         String bedrooms = bedroomsDD.getValue().toString();
         String bathrooms = bathroomsDD.getValue().toString();
@@ -1618,7 +1619,7 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
         editListingsP.setVisible(true);
         feeMessage.setText("");
         statusChangeMessage.setText("");
-        populateTable(jTable2);
+        populateTable(jTable2); //
         addListingsP.setVisible(false);
         listingsP.setVisible(false);
         loginP.setVisible(false);
