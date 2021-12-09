@@ -1526,8 +1526,8 @@ public class Dashboard extends javax.swing.JFrame {
         Property property = new Property(username, address, type, bedrooms, bathrooms, furnished, quadrant, status, expiry);
         propertyListings.addProperty(property);
 
-        if(addressI.getText().length()==0 || Integer.valueOf(bathroomI.getValue().toString())==0
-                || Integer.valueOf(bathroomI.getValue().toString())==0 || feeCheck.isSelected() == false){
+        if(addressI.getText().length()==0 || Integer.valueOf(bathroomI.getValue().toString())<0
+                || Integer.valueOf(bathroomI.getValue().toString())<0 || feeCheck.isSelected() == false){
             addListingsError.setForeground(Color.RED);
             addListingsError.setText("1 or more of the fields are empty, property not listed!");
         }else {
