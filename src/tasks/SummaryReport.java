@@ -5,14 +5,15 @@ import controllers.*;
 import java.sql.*;
 import java.lang.Integer;
 import java.util.Calendar;
+import java.util.Vector;
 
 public class SummaryReport {
     private PropertyController propertyController;
-    private static int listedHouses = 0;
-    private static int rentedHouses = 0;
-    private static int activeListing = 0;
-    private ArrayList<ArrayList<String>> arr = new ArrayList<>();
-    ArrayList<Integer> arr1 = new ArrayList<>();
+    private static int listedHouses;
+    private static int rentedHouses;
+    private static int activeListing;
+    private Vector<Vector<String>> arr = new Vector<Vector<String>>();
+    Vector<Integer> arr1 = new Vector<Integer>();
 
     public SummaryReport(PropertyController pc){
         propertyController = pc;
@@ -25,9 +26,9 @@ public class SummaryReport {
     //1. Landlord Name
     //2. House ID
     //3. Property Address
-    public ArrayList<ArrayList<String>> getRentedHouses(String month, String year){
+    public Vector<Vector<String>> getRentedHouses(String month, String year){
         
-
+        arr.clear();
         for(int i = 0; i < propertyController.getProp().size(); i++){
 
             
@@ -55,10 +56,10 @@ public class SummaryReport {
             String houseId = Integer.toString(temp.getPropertyID());
             String address = temp.getAddress();
 
-            ArrayList<String> inside = new ArrayList<>();
+            Vector<String> inside = new Vector<String>();
 
-            inside.add(landlordName);
             inside.add(houseId);
+            inside.add(landlordName);
             inside.add(address);
 
             arr.add(inside);
@@ -74,8 +75,12 @@ public class SummaryReport {
     2. total number of houses rented in the period.
     3. total number of active listings.
     */
-    public ArrayList<Integer> getDetails(String month, String year){
+    public Vector<Integer> getDetails(String month, String year){
 
+        arr1.clear();
+        activeListing = 0;
+        rentedHouses = 0;
+        listedHouses = 0;
         for(int i = 0; i < propertyController.getProp().size(); i++){
             Property temp = propertyController.getProp().get(i);
 
@@ -98,67 +103,66 @@ public class SummaryReport {
                 rentedHouses++;
             }
 
-            if(temp.getStatus().equals("Available")){
+            if(temp.getStatus().equals("Active")){
                 activeListing++;
             }
 
         }
-
-        arr1.add(listedHouses);
         arr1.add(rentedHouses);
+        arr1.add(listedHouses);
         arr1.add(activeListing);
 
         return arr1;
     }
 
     public static void main(String[] args){
-        PropertyController pc = new PropertyController();
-        Date d1 = new Date(0L);
-        Date d2 = new Date(3000L);
-        Date d3 = new Date(5000L);
-        Date d4 = new Date(6000L);
-        Date d5 = new Date(10000000000L);
-        Date d6 = new Date(20000000000L);
-
-       // Property p1 = new Property(0, 0, "address1", "apartment", 3, 3, "yes", "NW", "Available", d1, d2, "Landlord1");
-       // Property p2 = new Property(1, 1, "address2", "house", 2, 1, "no", "SW", "rented", d3, d4, "Landlord2");
-       // Property p3 = new Property(2, 2, "address3", "condo", 2, 2, "yes", "NE", "inactive", d5, d6, "Landlord3");
-
-
-
-        //pc.addProperty(p1);
-        // pc.addProperty(p2);
-        // pc.addProperty(p3);
-
-        // pc.removeProperty(0);
-        // pc.removeProperty(1);
-        // pc.removeProperty(2);
-
-        SummaryReport sr = new SummaryReport(pc);
-        //sr.getRentedHouses("December", "2017");
-
-        System.out.println("-----------TEST-------");
-        ArrayList<ArrayList<String>> res = new ArrayList<>();
-
-        res = sr.getRentedHouses("12", "1969");
-
-        
-        for(int i = 0; i < res.size(); i++){
-            System.out.print(res.get(i).get(0) + ", ");
-            System.out.print(res.get(i).get(1) + ", ");
-            System.out.println(res.get(i).get(2));
-        }
-
-        ArrayList<Integer> res1 = new ArrayList<>();
-
-        res1 = sr.getDetails("12", "1969");
-
-        System.out.println("getDetails() results:");
-        System.out.println("Month: " + 12 + "Year: " + 1969);
-        System.out.println("Houses listed in period: " + res1.get(0));
-        System.out.println("Rented houses during period: " + res1.get(1));
-        System.out.println("Active listings during period: " + res1.get(2));
-        
+//        PropertyController pc = new PropertyController();
+//        Date d1 = new Date(0L);
+//        Date d2 = new Date(3000L);
+//        Date d3 = new Date(5000L);
+//        Date d4 = new Date(6000L);
+//        Date d5 = new Date(10000000000L);
+//        Date d6 = new Date(20000000000L);
+//
+//       // Property p1 = new Property(0, 0, "address1", "apartment", 3, 3, "yes", "NW", "Available", d1, d2, "Landlord1");
+//       // Property p2 = new Property(1, 1, "address2", "house", 2, 1, "no", "SW", "rented", d3, d4, "Landlord2");
+//       // Property p3 = new Property(2, 2, "address3", "condo", 2, 2, "yes", "NE", "inactive", d5, d6, "Landlord3");
+//
+//
+//
+//        //pc.addProperty(p1);
+//        // pc.addProperty(p2);
+//        // pc.addProperty(p3);
+//
+//        // pc.removeProperty(0);
+//        // pc.removeProperty(1);
+//        // pc.removeProperty(2);
+//
+//        SummaryReport sr = new SummaryReport(pc);
+//        //sr.getRentedHouses("December", "2017");
+//
+//        System.out.println("-----------TEST-------");
+//        ArrayList<ArrayList<String>> res = new ArrayList<>();
+//
+//       // res = sr.getRentedHouses("12", "1969");
+//
+//
+//        for(int i = 0; i < res.size(); i++){
+//            System.out.print(res.get(i).get(0) + ", ");
+//            System.out.print(res.get(i).get(1) + ", ");
+//            System.out.println(res.get(i).get(2));
+//        }
+//
+//        ArrayList<Integer> res1 = new ArrayList<>();
+//
+//        res1 = sr.getDetails("12", "1969");
+//
+//        System.out.println("getDetails() results:");
+//        System.out.println("Month: " + 12 + "Year: " + 1969);
+//        System.out.println("Houses listed in period: " + res1.get(0));
+//        System.out.println("Rented houses during period: " + res1.get(1));
+//        System.out.println("Active listings during period: " + res1.get(2));
+//
 
         
     }
