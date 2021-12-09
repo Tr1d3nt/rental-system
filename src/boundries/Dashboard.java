@@ -1425,7 +1425,8 @@ public class Dashboard extends javax.swing.JFrame {
             model.addRow(row.toArray());
         }
     }
-
+    
+    // if listings label clicked load up frame for that
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {
         populateTable(jTable1, propertyListings.getPropertyListing()); 
         System.out.println("updated table");
@@ -1451,7 +1452,8 @@ public class Dashboard extends javax.swing.JFrame {
         summaryReportP.setVisible(false);
         notificationsP.setVisible(false);
     }
-
+    
+    // if add listings label is clicked then display frame for that
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {
         if(access.equals("Landlord")){
             addListingsP.setVisible(true);
@@ -1478,7 +1480,8 @@ public class Dashboard extends javax.swing.JFrame {
             restrictionP.setVisible(true);
         }
     }
-
+    
+    // if login page is clicked then display frame for that
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {
         loginP.setVisible(true);
         loginError.setVisible(false);
@@ -1490,7 +1493,8 @@ public class Dashboard extends javax.swing.JFrame {
         summaryReportP.setVisible(false);
         notificationsP.setVisible(false);
     }
-
+    
+    //Here we collect the filtered listings when the user presses the filter button
     private void filterListingsBMouseClicked(java.awt.event.MouseEvent evt) {
         String type = typeDD.getSelectedItem().toString();
         String bedrooms = bedroomsDD.getValue().toString();
@@ -1512,7 +1516,8 @@ public class Dashboard extends javax.swing.JFrame {
             model.addRow(row.toArray());
         }
     }
-
+    
+    // Here we add a listing to the database from user collected inputs onto the GUI
     private void addListingSubmitMouseClicked(java.awt.event.MouseEvent evt) {
         String address = addressI.getText();
         String type = typeI.getSelectedItem().toString();
@@ -1536,7 +1541,8 @@ public class Dashboard extends javax.swing.JFrame {
         }
         addListingsError.setVisible(true);
     }
-
+    
+    // Verify login inputs recieved
     private void loginSubmitBMouseClicked(java.awt.event.MouseEvent evt) {
         username = usernameI.getText();
         access = accessI.getSelectedItem().toString();
@@ -1555,7 +1561,8 @@ public class Dashboard extends javax.swing.JFrame {
         usernameI.setText("");
         passwordI.setText("");
     }
-
+    
+    // if edit listings label is clicked then display the frame for that
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {
         if(access.equals("Manager")){
             editFeeI.setVisible(true);
@@ -1592,7 +1599,8 @@ public class Dashboard extends javax.swing.JFrame {
             notificationsP.setVisible(false);
         }
     }
-
+    
+    //Here we change the status of the listing in the database
     private void changeSMouseClicked(java.awt.event.MouseEvent evt) {
         int listingS = jTable2.getSelectedRow();
         String status = statusS.getSelectedItem().toString();
@@ -1610,7 +1618,8 @@ public class Dashboard extends javax.swing.JFrame {
         }
         statusChangeMessage.setText("listing's status changed");
     }
-
+    
+    //Collecting the fee for the listing depending on period choosen
     private void addListingQuoteBMouseClicked(java.awt.event.MouseEvent evt) {
         String period = periodI.getSelectedItem().toString();
 
@@ -1619,14 +1628,16 @@ public class Dashboard extends javax.swing.JFrame {
         feeField.setVisible(true);
         addListingSubmit.setVisible(true);
     }
-
+    
+    //For manager to change the fee for period and saved to the database
     private void changeFeeBMouseClicked(java.awt.event.MouseEvent evt) {
         String period = editPeriodI.getSelectedItem().toString();
         String fee = editFeeI.getValue().toString();
 
         feeMessage.setText("Fee for period changed");
     }
-
+    
+    //If summary report label clicked then display that Frame
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {
         if(access.equals("Manager")){
             populateTable(jTable3, propertyListings.getPropertyListing());
@@ -1652,7 +1663,8 @@ public class Dashboard extends javax.swing.JFrame {
             notificationsP.setVisible(false);
         }
     }
-
+    
+    //Get summary report statistics once they filter for period
     private void sRFBMouseClicked(java.awt.event.MouseEvent evt) {
         String periodMonth = periodMonthS.getSelectedItem().toString();
         String periodYear = periodYearS.getSelectedItem().toString();
@@ -1672,14 +1684,16 @@ public class Dashboard extends javax.swing.JFrame {
             model.addRow(row.toArray());
         }
     }
-
+    
+    //clear prefrences for the user from the databse
     private void deletePrefrencesBMouseClicked(java.awt.event.MouseEvent evt) {
         notificationHandler.deleteNotification(username);
         DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
         int rowCount = model.getRowCount();
         for(int i=0; i!=rowCount; rowCount--){ model.removeRow(i); }
     }
-
+    
+    //If notifications label clicked then display the frame for it
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {
         if(access.equals("Renter")){
             populateTable(jTable4, notificationHandler.notifyProperties(username));
@@ -1714,7 +1728,8 @@ public class Dashboard extends javax.swing.JFrame {
             restrictionP.setVisible(true);
         }
     }
-
+    
+    //collecting user input and saving their prefrence into the database
     private void setprefrenceBMouseClicked(java.awt.event.MouseEvent evt) {
         String type = typeDD1.getSelectedItem().toString();
         String bedrooms = bedroomsDD1.getValue().toString();
