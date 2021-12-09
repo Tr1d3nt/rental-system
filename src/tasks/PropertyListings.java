@@ -10,9 +10,10 @@ import java.util.*;
 
 public class PropertyListings implements ObserverProperty {
 
-    private PropertyController p = new PropertyController();
-    private static Vector<Vector<String>> propertyListing = new Vector<Vector<String>>();
-    private ArrayList<Property> properties = new ArrayList<Property>();
+    private PropertyController p = new PropertyController(); // Property Controller -> Input to database
+    private static Vector<Vector<String>> propertyListing = new Vector<Vector<String>>(); // holds all properties in format for GUI
+    private ArrayList<Property> properties = new ArrayList<Property>(); // arrayList of all properties
+    // Observer Design pattern implementation
     private SubjectProperty subject;
 
     public PropertyListings(SubjectProperty s) {
@@ -24,14 +25,17 @@ public class PropertyListings implements ObserverProperty {
 
     }
 
+    // changes listing status for inputted id
     public void changeListing(String status, int id){
         p.updateStatus(id, status);
     }
 
+    // returns arrayList of all properties for Manager -> GUI Checks manager permissions
     public ArrayList<Property> managerProperties(){
         return p.getProp();
     }
 
+    // returns Vector<Vector<String>> for inputted landlord username
     public Vector<Vector<String>> propertyListingLandlord(String userName){
 
        ArrayList<Property> properties = p.getLandlordProperty(userName);
@@ -67,11 +71,12 @@ public class PropertyListings implements ObserverProperty {
 
 
     }
-
+    // returns ArrayList<Property> for the inputted landlord username
     public ArrayList<Property> landlordProperties(String userName){
         return p.getLandlordProperty(userName);
     }
 
+    // setter function to set Vector<Vector<String>> for propertyListing
     public void setPropertyListing() {
 
         propertyListing.clear();
@@ -106,55 +111,7 @@ public class PropertyListings implements ObserverProperty {
 
     }
 
-    // listing specific to landlord
-    public Vector<Vector<String>> listingsForEdit(String userName, Boolean isManager){
-        Vector<Vector<String>> result = new Vector<Vector<String>>();
-        if(!isManager) {
-
-            for(int i = 0; i < properties.size(); i++) {
-
-                Vector<String> listing = new Vector<String>();
-
-                if (properties.get(i).getEmail().equals(userName)) {
-
-                    // Integer type to hold integers for conversion to String
-                    Integer intBed = properties.get(i).getBedandBath()[0];
-                    Integer intBath = properties.get(i).getBedandBath()[1];
-                    // All the relevant information
-                    String address = properties.get(i).getAddress();
-                    String bedrooms = intBed.toString();
-                    String bathrooms = intBath.toString();
-                    String isFurnished = properties.get(i).getFurnished();
-                    String quadrant_ = properties.get(i).getQuadrant();
-                    String submitted = properties.get(i).getSubmitted().toString();
-
-                    listing.add(address);
-                    listing.add(bedrooms);
-                    listing.add(bathrooms);
-                    listing.add(isFurnished);
-                    listing.add(quadrant_);
-                    listing.add(submitted);
-
-                    result.add(listing);
-
-
-
-
-                }
-            }
-
-            return result;
-
-
-        }
-        else {
-
-            return propertyListing;
-
-        }
-
-    }
-
+    // adds property to database using PropertyController
     public void addProperty(Property p){
         this.p.addProperty(p);
     }
@@ -207,6 +164,7 @@ public class PropertyListings implements ObserverProperty {
 
     }
 
+    // gets currently set PropertyListing for GUI in Vector<Vector<String>> Format
     public Vector<Vector<String>> getPropertyListing() {
         setPropertyListing();
         return propertyListing;

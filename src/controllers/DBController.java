@@ -4,6 +4,7 @@ import java.sql.*;
 
 public abstract class DBController {
 
+    // Login and setup for Database
     protected String USERNAME = "root";
     protected String PASSWORD = "slammer1";
     protected String DBURL = "jdbc:mysql://127.0.0.1:3306/rentalsystem";

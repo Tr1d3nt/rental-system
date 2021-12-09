@@ -31,6 +31,7 @@ public class LoginController extends DBController {
         }
     }
 
+    // adds user -> Not implemented, but can be for future
     public void addUser(String username, String password, String userType){
         System.out.println("addUser method called.");
 
@@ -52,6 +53,7 @@ public class LoginController extends DBController {
         }
     }
 
+    // verifies if the inputted username, password, userType exists in the database
     public boolean verifyUser(String username, String password, String userType){
         ResultSet rs;
         boolean isRegistered = false;

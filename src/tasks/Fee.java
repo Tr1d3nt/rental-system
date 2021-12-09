@@ -2,8 +2,8 @@ package tasks;
 
 public class Fee {
 
-    private int amount = 0;
-    private int period = 0;
+    private int amount = 0; // amount for fee
+    private int period = 0; // amount for period
 
 
     public Fee(int amount, int period){

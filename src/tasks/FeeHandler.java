@@ -18,12 +18,15 @@ public class FeeHandler {
     }
 
 
-
+    // sets the for inputted Period, sets the fee as the inputted amount
+    // goes through the database controller to add fee
     public void setFee(String period, String amount){
         feeController.addFee(Integer.parseInt(period), Integer.parseInt(amount));
 
     }
 
+    // gets the fee for inputted period
+    // uses the ArrayList<Fee> in controller class
     public String getFee(String period){
 
         int fee = 0;

@@ -11,9 +11,10 @@ import controllers.NotificationsController;
 
 public class NotificationHandler implements ObserverNotification, ObserverProperty {
 
-    private ArrayList<Notifications> notifs = new ArrayList<Notifications>();
-    private ArrayList<Property> properties = new ArrayList<Property>();
-    NotificationsController notificationsController = new NotificationsController();
+    private ArrayList<Notifications> notifs = new ArrayList<Notifications>(); // arrayList holding notifications
+    private ArrayList<Property> properties = new ArrayList<Property>(); // arrayList holding properties
+    NotificationsController notificationsController = new NotificationsController(); // notification Controller
+    // Observer design patter implementation
     private SubjectNotification subjectNotification;
     private SubjectProperty subjectProperty;
 
@@ -28,7 +29,7 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
 
     }
-
+    // adds specified notification preferences into the database
     public void addNotification(String bed, String bath, String type,
             String furnished, String quadrant, String renterUserName, String status) {
 
@@ -36,7 +37,7 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
         notificationsController.addNotification(temp);
 
     }
-
+    // deletes ALL notifications of indicated userName
     public void deleteNotification(String userName) {
 
         notificationsController.deleteNotifications(userName);
@@ -44,7 +45,7 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
     }
 
-
+    // returns a Vector<Vector<String>> of properties that match the inputted userNames preferences
     public Vector<Vector<String>> notifyProperties(String userName) {
 
         Vector<Vector<String>> result = new Vector<Vector<String>>();
@@ -109,6 +110,8 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
     }
 
+
+    // checks if user has notifications
     public boolean hasNotification(String userName) {
 
 

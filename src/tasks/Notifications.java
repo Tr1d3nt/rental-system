@@ -2,6 +2,8 @@ package tasks;
 
 public class Notifications {
 
+
+    // class keeps track of notification preferences
     private int bedrooms;
     private int bathrooms;
     private String type;

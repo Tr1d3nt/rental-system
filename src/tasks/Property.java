@@ -7,6 +7,7 @@ import controllers.*;
 
 public class Property {
 
+    // class keeps track of properties
     private int propertyID;
     private String email  ;
     private String address;
