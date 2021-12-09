@@ -414,7 +414,7 @@ public class Dashboard extends javax.swing.JFrame {
 
             },
             new String [] {
-                "House ID", "lanlord Name", "Address"
+                "House ID", "landlord name", "Address"
             }
         ));
         jTable3.setFocusable(false);
