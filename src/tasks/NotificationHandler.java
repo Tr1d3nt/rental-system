@@ -37,6 +37,14 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
     }
 
+    public void deleteNotification(String userName) {
+
+        notificationsController.deleteNotifications(userName);
+
+
+    }
+
+
     public Vector<Vector<String>> notifyProperties(String userName) {
 
         Vector<Vector<String>> result = new Vector<Vector<String>>();

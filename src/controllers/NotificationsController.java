@@ -53,6 +53,22 @@ public class NotificationsController extends DBController implements SubjectNoti
 
     }
 
+    public void deleteNotifications(String userName){
+
+        try {
+            String query = "DELETE FROM notifications WHERE renterUserName = ?";
+            PreparedStatement stmt = dbConnect.prepareStatement(query);
+            stmt.setString(1, userName);
+            notifyObservers();
+            stmt.executeUpdate();
+            stmt.close();
+
+        } catch (SQLException e) {
+
+        }
+
+    }
+
     public void getAllNotifications() {
 
         try {

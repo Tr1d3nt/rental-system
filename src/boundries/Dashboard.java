@@ -1747,9 +1747,13 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
     }//GEN-LAST:event_sRFBActionPerformed
 
     private void deletePrefrencesBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePrefrencesBMouseClicked
+
+        notificationHandler.deleteNotification(username);
         DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
         int rowCount = model.getRowCount();
         for(int i=0; i!=rowCount; rowCount--){ model.removeRow(i); }
+
+
 
         
     }//GEN-LAST:event_deletePrefrencesBMouseClicked
