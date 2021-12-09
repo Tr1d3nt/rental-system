@@ -1701,6 +1701,7 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         if(access.equals("Manager")){
             // initially shows all listings
+            // TODO set format specific to SummaryReport
             populateTable(jTable3, propertyListings.getPropertyListing());
             f1.setText("N/A");
             f2.setText("N/A");

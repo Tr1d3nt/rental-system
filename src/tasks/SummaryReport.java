@@ -9,9 +9,9 @@ import java.util.Vector;
 
 public class SummaryReport {
     private PropertyController propertyController;
-    private static int listedHouses = 0;
-    private static int rentedHouses = 0;
-    private static int activeListing = 0;
+    private static int listedHouses;
+    private static int rentedHouses;
+    private static int activeListing;
     private Vector<Vector<String>> arr = new Vector<Vector<String>>();
     Vector<Integer> arr1 = new Vector<Integer>();
 
@@ -28,7 +28,7 @@ public class SummaryReport {
     //3. Property Address
     public Vector<Vector<String>> getRentedHouses(String month, String year){
         
-
+        arr.clear();
         for(int i = 0; i < propertyController.getProp().size(); i++){
 
             
@@ -77,6 +77,10 @@ public class SummaryReport {
     */
     public Vector<Integer> getDetails(String month, String year){
 
+        arr1.clear();
+        activeListing = 0;
+        rentedHouses = 0;
+        listedHouses = 0;
         for(int i = 0; i < propertyController.getProp().size(); i++){
             Property temp = propertyController.getProp().get(i);
 
@@ -104,7 +108,6 @@ public class SummaryReport {
             }
 
         }
-
         arr1.add(rentedHouses);
         arr1.add(listedHouses);
         arr1.add(activeListing);
