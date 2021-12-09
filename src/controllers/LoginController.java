@@ -1,5 +1,6 @@
 package controllers;
 
+
 import java.sql.*;
 
 
@@ -37,12 +38,12 @@ public class LoginController extends DBController {
             String query = "INSERT INTO user (userID, Email, Password, userType)"
                     + " VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = dbConnect.prepareStatement(query);
-            
+
             stmt.setInt(1, userID++);
             stmt.setString(2, username);
             stmt.setString(3, password);
             stmt.setString(4, userType);
-            
+
 
             stmt.execute();
             stmt.close();
@@ -76,7 +77,7 @@ public class LoginController extends DBController {
         LoginController lc = new LoginController();
 
         boolean isRegistered = lc.verifyUser("def", "boom", "landlord");
-        
+
         if(isRegistered){
             System.out.println("Welcome!");
         }

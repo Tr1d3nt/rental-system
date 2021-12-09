@@ -27,6 +27,37 @@ public class PropertyController extends DBController implements SubjectProperty 
         setId();
     }
 
+    public ArrayList<Property> getLandlordProperty(String userName){
+        ResultSet set;
+        ArrayList<Property> properties = new ArrayList<Property>();
+        try{
+            String query = "SELECT * FROM property WHERE landlordEmail = (?)";
+            PreparedStatement stmt = dbConnect.prepareStatement(query);
+
+            stmt.setString(1, userName);
+
+            set = stmt.executeQuery();
+
+            while(set.next()){
+
+                Property p = new Property(set.getInt("propertyID"), set.getString("landlordEmail"),
+                        set.getString("address"), set.getString("type"), set.getInt("bedrooms"),
+                        set.getInt("bathrooms"), set.getString("furnished"), set.getString("quadrant"),
+                        set.getString("status"),
+                        set.getDate("submitted"),
+                        set.getDate("expiry"));
+
+                properties.add(p);
+
+
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return properties;
+    }
+
     public void addProperty(Property property) {
 
         try {
@@ -66,12 +97,13 @@ public class PropertyController extends DBController implements SubjectProperty 
             PreparedStatement stmt = dbConnect.prepareStatement(query);
             stmt.setString(1, status);
             stmt.setInt(2, propertyID);
-            notifyObservers();
 
             stmt.executeUpdate();
+            getAllProperty();
             stmt.close();
 
         } catch (SQLException e) {
+            e.printStackTrace();
 
         }
 
@@ -83,7 +115,7 @@ public class PropertyController extends DBController implements SubjectProperty 
             String query = "DELETE FROM property WHERE propertyID = ?";
             PreparedStatement stmt = dbConnect.prepareStatement(query);
             stmt.setInt(1, propertyID);
-            notifyObservers();
+            getAllProperty();
 
             stmt.executeUpdate();
             stmt.close();
