@@ -11,8 +11,8 @@ import java.util.*;
 public class PropertyListings implements ObserverProperty {
 
     private PropertyController p = new PropertyController();
-    private Vector<Vector<String>> propertyListing = new Vector<Vector<String>>();
-    private ArrayList<Property> properties;
+    private static Vector<Vector<String>> propertyListing = new Vector<Vector<String>>();
+    private ArrayList<Property> properties = new ArrayList<Property>();
     private SubjectProperty subject;
 
     public PropertyListings(SubjectProperty s) {
@@ -22,6 +22,54 @@ public class PropertyListings implements ObserverProperty {
 
     public PropertyListings() {
 
+    }
+
+    public void changeListing(String status, int id){
+        p.updateStatus(id, status);
+    }
+
+    public ArrayList<Property> managerProperties(){
+        return p.getProp();
+    }
+
+    public Vector<Vector<String>> propertyListingLandlord(String userName){
+
+       ArrayList<Property> properties = p.getLandlordProperty(userName);
+       Vector<Vector<String>> result = new Vector<Vector<String>>();
+
+       for(int i = 0; i < properties.size(); i++) {
+
+           Vector<String> listing = new Vector<String>();
+           // Integer type to hold integers for conversion to String
+           Integer intBed = properties.get(i).getBedandBath()[0];
+           Integer intBath = properties.get(i).getBedandBath()[1];
+           // All the relevant information
+           String address = properties.get(i).getAddress();
+           String bedrooms = intBed.toString();
+           String type = properties.get(i).getType();
+           String bathrooms = intBath.toString();
+           String isFurnished = properties.get(i).getFurnished();
+           String quadrant_ = properties.get(i).getQuadrant();
+           String status = properties.get(i).getStatus();
+
+           listing.add(address);
+           listing.add(type);
+           listing.add(bedrooms);
+           listing.add(bathrooms);
+           listing.add(status);
+           listing.add(isFurnished);
+           listing.add(quadrant_);
+
+           result.add(listing);
+       }
+
+       return result;
+
+
+    }
+
+    public ArrayList<Property> landlordProperties(String userName){
+        return p.getLandlordProperty(userName);
     }
 
     public void setPropertyListing() {
@@ -50,10 +98,11 @@ public class PropertyListings implements ObserverProperty {
             listing.add(status);
             listing.add(isFurnished);
             listing.add(quadrant);
-
             propertyListing.add(listing);
 
         }
+
+
 
     }
 
@@ -159,7 +208,7 @@ public class PropertyListings implements ObserverProperty {
     }
 
     public Vector<Vector<String>> getPropertyListing() {
-
+        setPropertyListing();
         return propertyListing;
 
     }
