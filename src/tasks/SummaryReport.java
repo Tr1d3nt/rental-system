@@ -51,7 +51,7 @@ public class SummaryReport {
                 continue;
             } 
 
-            String landlordName = temp.getLandlordName();
+            String landlordName = temp.getEmail();
             String houseId = Integer.toString(temp.getPropertyID());
             String address = temp.getAddress();
 
@@ -120,9 +120,9 @@ public class SummaryReport {
         Date d5 = new Date(10000000000L);
         Date d6 = new Date(20000000000L);
 
-        Property p1 = new Property(0, 0, "address1", "apartment", 3, 3, "yes", "NW", "Available", d1, d2, "Landlord1");
-        Property p2 = new Property(1, 1, "address2", "house", 2, 1, "no", "SW", "rented", d3, d4, "Landlord2");
-        Property p3 = new Property(2, 2, "address3", "condo", 2, 2, "yes", "NE", "inactive", d5, d6, "Landlord3");
+       // Property p1 = new Property(0, 0, "address1", "apartment", 3, 3, "yes", "NW", "Available", d1, d2, "Landlord1");
+       // Property p2 = new Property(1, 1, "address2", "house", 2, 1, "no", "SW", "rented", d3, d4, "Landlord2");
+       // Property p3 = new Property(2, 2, "address3", "condo", 2, 2, "yes", "NE", "inactive", d5, d6, "Landlord3");
 
 
 
