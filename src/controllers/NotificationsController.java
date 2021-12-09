@@ -10,7 +10,7 @@ import interfaces.SubjectNotification;
 public class NotificationsController extends DBController implements SubjectNotification {
 
     private ArrayList<Notifications> notifications = new ArrayList<Notifications>();
-    private ArrayList<ObserverNotification> observers = new ArrayList<ObserverNotification>();
+    private static ArrayList<ObserverNotification> observers = new ArrayList<ObserverNotification>();
     private static int id = 0;
 
     public NotificationsController() {
