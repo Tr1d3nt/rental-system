@@ -1,10 +1,12 @@
 package boundries;
 
-import controllers.FeeController;
 import controllers.LoginController;
 import controllers.NotificationsController;
 import controllers.PropertyController;
-import tasks.*;
+import tasks.NotificationHandler;
+import tasks.Property;
+import tasks.PropertyListings;
+import tasks.SummaryReport;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -30,8 +32,6 @@ public class Dashboard extends javax.swing.JFrame {
     private PropertyListings propertyListings;
     private NotificationsController notificationsController = new NotificationsController();
     private NotificationHandler notificationHandler;
-    private FeeController feeController = new FeeController();
-    private FeeHandler feeHandler;
 
     /**
      * Creates new form Dashboard
@@ -48,8 +48,6 @@ public class Dashboard extends javax.swing.JFrame {
         notificationsP.setVisible(false);
         propertyListings = new PropertyListings(propertyController);
         notificationHandler = new NotificationHandler(notificationsController, propertyController);
-        feeHandler = new FeeHandler();
-
     }
 
     /**
@@ -190,7 +188,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         listingsB.setBackground(new java.awt.Color(10, 43, 94));
 
-        jLabel1.setFont(new java.awt.Font("Cambria Math", 1, 14));
+        jLabel1.setFont(new java.awt.Font("Cambria Math", 1, 14)); 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Listings");
@@ -215,7 +213,7 @@ public class Dashboard extends javax.swing.JFrame {
         addListingsB.setBackground(new java.awt.Color(10, 43, 94));
         addListingsB.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Cambria Math", 1, 14));
+        jLabel2.setFont(new java.awt.Font("Cambria Math", 1, 14)); 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Add Listings");
@@ -238,7 +236,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         LoginB.setBackground(new java.awt.Color(10, 43, 94));
 
-        jLabel3.setFont(new java.awt.Font("Cambria Math", 1, 14));
+        jLabel3.setFont(new java.awt.Font("Cambria Math", 1, 14)); 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Login");
@@ -266,14 +264,14 @@ public class Dashboard extends javax.swing.JFrame {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
         );
 
-        logo.setFont(new java.awt.Font("SimSun-ExtB", 1, 36));
+        logo.setFont(new java.awt.Font("SimSun-ExtB", 1, 36)); 
         logo.setForeground(new java.awt.Color(255, 255, 255));
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo.setText("PRMS");
 
         editListingB.setBackground(new java.awt.Color(10, 43, 94));
 
-        jLabel5.setFont(new java.awt.Font("Cambria", 1, 14));
+        jLabel5.setFont(new java.awt.Font("Cambria", 1, 14)); 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Edit Listings");
@@ -296,7 +294,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         summaryReportB.setBackground(new java.awt.Color(10, 43, 94));
 
-        jLabel11.setFont(new java.awt.Font("Cambria", 1, 14));
+        jLabel11.setFont(new java.awt.Font("Cambria", 1, 14)); 
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Summary Report");
@@ -319,7 +317,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         notificationsB.setBackground(new java.awt.Color(10, 43, 94));
 
-        jLabel13.setFont(new java.awt.Font("Cambria", 1, 14));
+        jLabel13.setFont(new java.awt.Font("Cambria", 1, 14)); 
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Notifications");
@@ -383,7 +381,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         summaryReportP.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel24.setFont(new java.awt.Font("Yu Gothic", 0, 24));
+        jLabel24.setFont(new java.awt.Font("Yu Gothic", 0, 24)); 
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Summary Report");
 
@@ -401,7 +399,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jTable3.setFont(new java.awt.Font("SimSun", 0, 12));
+        jTable3.setFont(new java.awt.Font("SimSun", 0, 12)); 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -420,30 +418,30 @@ public class Dashboard extends javax.swing.JFrame {
         jTable3.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTable3);
 
-        jLabel21.setFont(new java.awt.Font("SimSun", 0, 16));
+        jLabel21.setFont(new java.awt.Font("SimSun", 0, 16)); 
         jLabel21.setForeground(new java.awt.Color(153, 153, 153));
         jLabel21.setText("Filter by date");
 
-        jLabel26.setFont(new java.awt.Font("SimSun", 0, 16));
+        jLabel26.setFont(new java.awt.Font("SimSun", 0, 16)); 
         jLabel26.setForeground(new java.awt.Color(153, 153, 153));
         jLabel26.setText("Listings");
 
-        jLabel27.setFont(new java.awt.Font("SimSun", 1, 18));
+        jLabel27.setFont(new java.awt.Font("SimSun", 1, 18)); 
         jLabel27.setText("Total Listings");
 
-        jLabel28.setFont(new java.awt.Font("SimSun", 1, 18));
+        jLabel28.setFont(new java.awt.Font("SimSun", 1, 18)); 
         jLabel28.setText("Houses Rented");
 
-        jLabel29.setFont(new java.awt.Font("SimSun", 1, 18));
+        jLabel29.setFont(new java.awt.Font("SimSun", 1, 18)); 
         jLabel29.setText("Active Listings");
 
-        f2.setFont(new java.awt.Font("Segoe Script", 0, 36));
+        f2.setFont(new java.awt.Font("Segoe Script", 0, 36)); 
         f2.setText("0");
 
-        f1.setFont(new java.awt.Font("Segoe Script", 0, 36));
+        f1.setFont(new java.awt.Font("Segoe Script", 0, 36)); 
         f1.setText("0");
 
-        f3.setFont(new java.awt.Font("Segoe Script", 0, 36));
+        f3.setFont(new java.awt.Font("Segoe Script", 0, 36)); 
         f3.setText("0");
 
         periodYearS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2017", "2018", "2019", "2020", "2021", "2022" }));
@@ -530,7 +528,7 @@ public class Dashboard extends javax.swing.JFrame {
         welcomePage.setBackground(new java.awt.Color(255, 255, 255));
         welcomePage.setPreferredSize(new java.awt.Dimension(774, 505));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 36));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 36)); 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Welcome!!!");
 
@@ -551,7 +549,7 @@ public class Dashboard extends javax.swing.JFrame {
         restrictionP.setBackground(new java.awt.Color(255, 255, 255));
         restrictionP.setPreferredSize(new java.awt.Dimension(774, 505));
 
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18));
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); 
         jLabel33.setForeground(new java.awt.Color(255, 51, 0));
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel33.setText("404: The page you are trying to access is unavailable for your account type.");
@@ -573,7 +571,7 @@ public class Dashboard extends javax.swing.JFrame {
         listingsP.setBackground(new java.awt.Color(255, 255, 255));
         listingsP.setPreferredSize(new java.awt.Dimension(774, 505));
 
-        jTable1.setFont(new java.awt.Font("SimSun", 0, 12));
+        jTable1.setFont(new java.awt.Font("SimSun", 0, 12)); 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -610,7 +608,7 @@ public class Dashboard extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(7).setHeaderValue("Contact");
         }
 
-        jLabel12.setFont(new java.awt.Font("Yu Gothic", 0, 24));
+        jLabel12.setFont(new java.awt.Font("Yu Gothic", 0, 24)); 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Listings");
 
@@ -730,7 +728,7 @@ public class Dashboard extends javax.swing.JFrame {
         notificationsP.setBackground(new java.awt.Color(255, 255, 255));
         notificationsP.setPreferredSize(new java.awt.Dimension(774, 505));
 
-        jTable4.setFont(new java.awt.Font("SimSun", 0, 12));
+        jTable4.setFont(new java.awt.Font("SimSun", 0, 12)); 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -767,7 +765,7 @@ public class Dashboard extends javax.swing.JFrame {
             jTable4.getColumnModel().getColumn(7).setHeaderValue("Contact");
         }
 
-        jLabel30.setFont(new java.awt.Font("Yu Gothic", 0, 24));
+        jLabel30.setFont(new java.awt.Font("Yu Gothic", 0, 24)); 
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel30.setText("Notifications");
 
@@ -901,26 +899,26 @@ public class Dashboard extends javax.swing.JFrame {
         addListingsP.setBackground(new java.awt.Color(255, 255, 255));
         addListingsP.setPreferredSize(new java.awt.Dimension(774, 505));
 
-        editListingsHeader.setFont(new java.awt.Font("Yu Gothic Light", 1, 24));
+        editListingsHeader.setFont(new java.awt.Font("Yu Gothic Light", 1, 24)); 
         editListingsHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         editListingsHeader.setText("Add Listings");
 
-        typeL.setFont(new java.awt.Font("SimSun", 0, 12));
+        typeL.setFont(new java.awt.Font("SimSun", 0, 12)); 
         typeL.setText("House Type");
 
-        bedroomNL.setFont(new java.awt.Font("SimSun", 0, 12));
+        bedroomNL.setFont(new java.awt.Font("SimSun", 0, 12)); 
         bedroomNL.setText("Bedrooms");
 
-        addressL.setFont(new java.awt.Font("SimSun", 0, 12));
+        addressL.setFont(new java.awt.Font("SimSun", 0, 12)); 
         addressL.setText("Address ");
 
-        bathroomNL.setFont(new java.awt.Font("SimSun", 0, 12));
+        bathroomNL.setFont(new java.awt.Font("SimSun", 0, 12)); 
         bathroomNL.setText("Bathrooms");
 
-        statusL.setFont(new java.awt.Font("SimSun", 0, 12));
+        statusL.setFont(new java.awt.Font("SimSun", 0, 12)); 
         statusL.setText("House Status");
 
-        furnishedL.setFont(new java.awt.Font("SimSun", 0, 12));
+        furnishedL.setFont(new java.awt.Font("SimSun", 0, 12)); 
         furnishedL.setText("Furnished");
 
         statusI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Rented", "Cancelled", "Suspended" }));
@@ -940,13 +938,13 @@ public class Dashboard extends javax.swing.JFrame {
         typeI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Detached", "Attached", "Townhouse", "Apartment" }));
 
         feeCheck.setBackground(new java.awt.Color(255, 255, 255));
-        feeCheck.setFont(new java.awt.Font("Yu Gothic UI", 0, 12));
+        feeCheck.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); 
         feeCheck.setText("By clicking this box, you agree to pay a fee of: ");
         feeCheck.setAlignmentY(0.0F);
         feeCheck.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         feeCheck.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        furnishedL1.setFont(new java.awt.Font("SimSun", 0, 12));
+        furnishedL1.setFont(new java.awt.Font("SimSun", 0, 12)); 
         furnishedL1.setText("Period");
 
         quadrantI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SW", "SE", "NW", "NE" }));
@@ -957,7 +955,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         feeField.setForeground(new java.awt.Color(255, 0, 0));
 
-        furnishedL2.setFont(new java.awt.Font("SimSun", 0, 12));
+        furnishedL2.setFont(new java.awt.Font("SimSun", 0, 12)); 
         furnishedL2.setText("Quadrant");
 
         periodI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "30", "60", "90" }));
@@ -1088,22 +1086,22 @@ public class Dashboard extends javax.swing.JFrame {
 
         loginP.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24));
+        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Hello, Welcome Back");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Login to rent, manage, and much more!");
 
-        jLabel7.setFont(new java.awt.Font("SimSun", 0, 14));
+        jLabel7.setFont(new java.awt.Font("SimSun", 0, 14)); 
         jLabel7.setText("Username");
 
-        jLabel8.setFont(new java.awt.Font("SimSun", 0, 14));
+        jLabel8.setFont(new java.awt.Font("SimSun", 0, 14)); 
         jLabel8.setText("Password");
 
-        jLabel9.setFont(new java.awt.Font("SimSun", 0, 14));
+        jLabel9.setFont(new java.awt.Font("SimSun", 0, 14)); 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("User ");
 
@@ -1184,7 +1182,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         editListingsP.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel22.setFont(new java.awt.Font("Yu Gothic", 0, 24));
+        jLabel22.setFont(new java.awt.Font("Yu Gothic", 0, 24)); 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Edit Listings");
 
@@ -1213,7 +1211,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setFont(new java.awt.Font("SimSun", 0, 12));
+        jTable2.setFont(new java.awt.Font("SimSun", 0, 12)); 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
@@ -1395,7 +1393,7 @@ public class Dashboard extends javax.swing.JFrame {
     class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() { setOpaque(true); }
         public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus, int row, int column) {
+                                                        boolean isSelected, boolean hasFocus, int row, int column) {
             setText((value == null) ? "Contact" : value.toString());
             return this;
         }
@@ -1407,7 +1405,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         public ButtonEditor(JCheckBox checkBox) { super(checkBox); }
         public Component getTableCellEditorComponent(JTable table, Object value,
-                                                     boolean isSelected, int row, int column) {
+                                                        boolean isSelected, int row, int column) {
             label = (value == null) ? "Contact" : value.toString();
             button.setText(label);
             return button;
@@ -1418,7 +1416,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void populateTable(JTable table, Vector<Vector<String>> input){
         DefaultTableModel model = (DefaultTableModel)table.getModel();
-
+ 
         int rowCount = model.getRowCount();
         for(int i=0; i!=rowCount; rowCount--){ model.removeRow(i); }
 
@@ -1429,20 +1427,20 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {
-        populateTable(jTable1, propertyListings.getPropertyListing());
+        populateTable(jTable1, propertyListings.getPropertyListing()); 
         System.out.println("updated table");
         jTable1.getColumn("Contact").setCellRenderer(new ButtonRenderer());
         jTable1.getColumn("Contact").setCellEditor(new ButtonEditor(new JCheckBox()));
 
         button.addActionListener(
-                new ActionListener(){
-                    @Override
-                    public void actionPerformed(ActionEvent event)
-                    {
-                        contact = new Contact();
-                        contact.setVisible(true);
-                    }
-                });
+            new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent event)
+                {
+                    contact = new Contact();
+                    contact.setVisible(true);
+                }
+            });
 
         listingsP.setVisible(true);
         addListingsP.setVisible(false);
@@ -1507,8 +1505,8 @@ public class Dashboard extends javax.swing.JFrame {
         for(int i=0; i!=rowCount; rowCount--){ model.removeRow(i); }
 
         //filtering and displaying process
-        Vector<Vector<String>> toFilter = propertyListings.filteredPropertyListing(type, bedrooms,
-                bathrooms, furnished, status, quadrant);
+        Vector<Vector<String>> toFilter = propertyListings.filteredPropertyListing(type, bedrooms, 
+                                                                                        bathrooms, furnished, status, quadrant);
         for(int i=0; i<toFilter.size(); i++){
             Vector<String> row = toFilter.get(i);
             model.addRow(row.toArray());
@@ -1616,10 +1614,7 @@ public class Dashboard extends javax.swing.JFrame {
     private void addListingQuoteBMouseClicked(java.awt.event.MouseEvent evt) {
         String period = periodI.getSelectedItem().toString();
 
-        String fee = "$" + feeHandler.getFee(period);
-
-
-        feeField.setText(fee);
+        feeField.setText("$30");
         feeCheck.setVisible(true);
         feeField.setVisible(true);
         addListingSubmit.setVisible(true);
@@ -1629,7 +1624,6 @@ public class Dashboard extends javax.swing.JFrame {
         String period = editPeriodI.getSelectedItem().toString();
         String fee = editFeeI.getValue().toString();
 
-        feeHandler.setFee(period, fee);
         feeMessage.setText("Fee for period changed");
     }
 
@@ -1693,14 +1687,14 @@ public class Dashboard extends javax.swing.JFrame {
             jTable4.getColumn("Contact").setCellEditor(new ButtonEditor(new JCheckBox()));
 
             button.addActionListener(
-                    new ActionListener(){
-                        @Override
-                        public void actionPerformed(ActionEvent event)
-                        {
-                            contact = new Contact();
-                            contact.setVisible(true);
-                        }
-                    });
+            new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent event)
+                {
+                    contact = new Contact();
+                    contact.setVisible(true);
+                }
+            });
             notificationsP.setVisible(true);
             summaryReportP.setVisible(false);
             editListingsP.setVisible(false);
@@ -1762,7 +1756,6 @@ public class Dashboard extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify
     private javax.swing.JPanel LoginB;
     private javax.swing.JComboBox<String> accessI;
     private javax.swing.JButton addListingQuoteB;
@@ -1884,5 +1877,5 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel typeL;
     private javax.swing.JTextField usernameI;
     private javax.swing.JPanel welcomePage;
-    // End of variables declaration
+ 
 }
