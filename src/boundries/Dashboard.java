@@ -7,6 +7,7 @@ import controllers.PropertyController;
 import tasks.NotificationHandler;
 import tasks.Property;
 import tasks.PropertyListings;
+import tasks.SummaryReport;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -1699,10 +1700,11 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         if(access.equals("Manager")){
-            //populateTable(jTable3);
-            f1.setText("14");
-            f2.setText("25");
-            f3.setText("11");
+            // initially shows all listings
+            populateTable(jTable3, propertyListings.getPropertyListing());
+            f1.setText("N/A");
+            f2.setText("N/A");
+            f3.setText("N/A");
             summaryReportP.setVisible(true);
             editListingsP.setVisible(false);
             addListingsP.setVisible(false);
@@ -1726,20 +1728,23 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
     private void sRFBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sRFBMouseClicked
         String periodMonth = periodMonthS.getSelectedItem().toString();
         String periodYear = periodYearS.getSelectedItem().toString();
-        
+        SummaryReport summaryReport = new SummaryReport(propertyController);
         //reset table
         DefaultTableModel model = (DefaultTableModel)jTable3.getModel();
         int rowCount = model.getRowCount();
         for(int i=0; i!=rowCount; rowCount--){ model.removeRow(i); }
-        
-        String[][] data = fetchData();
-         for(int i=0; i< data.length; i++){
-            String[] postedDate = data[i][data[i].length-1].split("-");
-            if(Integer.parseInt(postedDate[2]) == Integer.parseInt(periodMonth) &&
-                    Integer.parseInt(postedDate[0]) == Integer.parseInt(periodYear)){
-                model.addRow(data[i]);
-            }
-         }
+        // add data
+        Vector<Vector<String>> data = summaryReport.getRentedHouses(periodMonth, periodYear);
+        Vector<Integer> details = summaryReport.getDetails(periodMonth, periodYear);
+        f1.setText(Integer.toString(details.get(0)));
+        f2.setText(Integer.toString(details.get(1)));
+        f3.setText(Integer.toString(details.get(2)));
+        for(int i=0; i<data.size(); i++){
+
+            Vector<String> row = data.get(i);
+
+            model.addRow(row.toArray());
+        }
     }//GEN-LAST:event_sRFBMouseClicked
 
     private void sRFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sRFBActionPerformed
