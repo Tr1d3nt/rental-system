@@ -95,3 +95,20 @@ CREATE TABLE IF NOT EXISTS `rentalsystem`.`user` (
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+---------------------------------------
+-- Adding Users + Properties + Fees --
+---------------------------------------
+INSERT INTO property (propertyID, landlordEmail, address, type, bedrooms, bathrooms, furnished, quadrant, status, submitted, expiry) VALUES (0, "landlord@land.com", "123 street", "Apartment", 2, 1, "Yes", "NW", "Active", "2021-12-09", "2022-01-09");
+INSERT INTO property (propertyID, landlordEmail, address, type, bedrooms, bathrooms, furnished, quadrant, status, submitted, expiry) VALUES (2, "landlord2@land.com", "321 street", "Attached", 3, 1, "Yes", "SW", "Active", "2021-12-09", "2022-01-09");
+
+INSERT INTO user (userID, userName, Password, userType) VALUES (0, "admin@admin.com", "admin", "Manager");
+INSERT INTO user (userID, userName, Password, userType) VALUES (1, "landlord@land.com", "landlord", "Landlord");
+INSERT INTO user (userID, userName, Password, userType) VALUES (2, "landlord2@land.com", "landlord2", "Landlord");
+INSERT INTO user (userID, userName, Password, userType) VALUES (3, "renter@renter.com", "renter", "Renter");
+
+INSERT INTO fee (managerID, amount, period) VALUES (0, 30, 30);
+INSERT INTO fee (managerID, amount, period) VALUES (1, 60, 60);
+INSERT INTO fee (managerID, amount, period) VALUES (2, 90, 90);
+
