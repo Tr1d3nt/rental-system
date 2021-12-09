@@ -26,6 +26,7 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
         subjectProperty.attach(this);
         subjectNotification.attach(this);
 
+
     }
 
     public void addNotification(String bed, String bath, String type,
@@ -54,8 +55,6 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
                 type = notifs.get(i).getType();
                 furnished = notifs.get(i).getFurnished();
                 quadrant = notifs.get(i).getQuadrant();
-
-                System.out.println("Preferences are" + bed + " " + bath + " " + type + " " + furnished + " " + quadrant);
 
             }
 
@@ -120,12 +119,26 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
     @Override
     public void updateNotifs(ArrayList<Notifications> arr) {
-        this.notifs = arr;
+        this.notifs.clear();
+
+        for (int i = 0; i < arr.size(); i++) {
+
+            notifs.add(arr.get(i));
+
+        }
     }
 
     @Override
     public void update(ArrayList<Property> arr) {
-        this.properties = arr;
+
+        this.properties.clear();
+
+        for (int i = 0; i < arr.size(); i++) {
+
+            properties.add((arr.get(i)));
+
+        }
+
     }
 
 }

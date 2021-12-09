@@ -11,8 +11,8 @@ import interfaces.SubjectProperty;
 public class PropertyController extends DBController implements SubjectProperty {
 
     private ArrayList<Property> props = new ArrayList<Property>();
-    private ArrayList<ObserverProperty> observers = new ArrayList<ObserverProperty>();
-    static private int id = 0;
+    static private ArrayList<ObserverProperty> observers = new ArrayList<ObserverProperty>();
+    private static int id = 0;
 
 
     public void increment(){
@@ -34,7 +34,7 @@ public class PropertyController extends DBController implements SubjectProperty 
             String query = "INSERT INTO property (propertyID, landlordEmail, address, type, bedrooms, bathrooms, furnished, quadrant, status, submitted, expiry)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-
+            setId();
             PreparedStatement stmt = dbConnect.prepareStatement(query);
             stmt.setInt(1, id);
             stmt.setString(2, property.getEmail());
@@ -51,9 +51,7 @@ public class PropertyController extends DBController implements SubjectProperty 
 
             stmt.execute();
             stmt.close();
-
-            props.add(property);
-            notifyObservers();
+            getAllProperty();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,7 +98,7 @@ public class PropertyController extends DBController implements SubjectProperty 
     public void getAllProperty() {
 
         try {
-
+            props.clear();
             Statement stmt;
             ResultSet set;
             String query = "SELECT * FROM property";
@@ -119,7 +117,7 @@ public class PropertyController extends DBController implements SubjectProperty 
 
             }
 
-            //notifyObservers();
+            notifyObservers();
 
         } catch (SQLException e) {
 
@@ -132,7 +130,7 @@ public class PropertyController extends DBController implements SubjectProperty 
     // function to get most recent property key in database
     public void setId(){
         if(props.size() != 0) {
-            id = props.get(props.size()-1).getPropertyID() + 1;
+           this.id = props.get(props.size()-1).getPropertyID() + 1;
         }
 
 
@@ -144,7 +142,7 @@ public class PropertyController extends DBController implements SubjectProperty 
 
     @Override
     public void notifyObservers() {
-
+        System.out.println(observers.size());
         for (int i = 0; i < observers.size(); i++) {
             ObserverProperty temp = observers.get(i);
             temp.update(props);
