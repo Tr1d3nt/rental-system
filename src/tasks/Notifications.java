@@ -7,17 +7,33 @@ public class Notifications {
     private String type;
     private String furnished;
     private String quadrant;
-    private int renterID;
+    private String renterUserName;
+    private int id;
+    private String status;
 
     public Notifications(String bed, String bath, String type,
-            String furnished, String quadrant, String renterID) {
+            String furnished, String quadrant, String renterUserName, String status) {
 
         bedrooms = Integer.parseInt(bed);
         bathrooms = Integer.parseInt(bath);
         this.type = type;
         this.furnished = furnished;
         this.quadrant = quadrant;
-        this.renterID = Integer.parseInt(renterID);
+        this.renterUserName = renterUserName;
+        this.status = status;
+
+    }
+    public Notifications(String id, String bed, String bath, String type,
+                          String furnished, String quadrant, String renterUserName, String status) {
+
+        bedrooms = Integer.parseInt(bed);
+        bathrooms = Integer.parseInt(bath);
+        this.type = type;
+        this.furnished = furnished;
+        this.quadrant = quadrant;
+        this.renterUserName = renterUserName;
+        this.id = Integer.parseInt(id);
+        this.status = status;
 
     }
 
@@ -43,8 +59,14 @@ public class Notifications {
         return this.quadrant;
     }
 
-    public int getID() {
-        return this.renterID;
+    public String getRenterUserName(){return this.renterUserName;}
+
+    public int getId(){
+        return this.id;
     }
+    public String getStatus(){
+        return this.status;
+    }
+
 
 }

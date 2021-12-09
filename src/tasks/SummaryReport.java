@@ -29,6 +29,7 @@ public class SummaryReport {
         
 
         for(int i = 0; i < propertyController.getProp().size(); i++){
+
             
             Property temp = propertyController.getProp().get(i);
 
@@ -55,6 +56,7 @@ public class SummaryReport {
             String address = temp.getAddress();
 
             ArrayList<String> inside = new ArrayList<>();
+
             inside.add(landlordName);
             inside.add(houseId);
             inside.add(address);

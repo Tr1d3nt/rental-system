@@ -10,27 +10,32 @@ import interfaces.SubjectNotification;
 public class NotificationsController extends DBController implements SubjectNotification {
 
     private ArrayList<Notifications> notifications = new ArrayList<Notifications>();
-    private ArrayList<ObserverNotification> observers = new ArrayList<ObserverNotification>();
+    private static ArrayList<ObserverNotification> observers = new ArrayList<ObserverNotification>();
+    private static int id = 0;
 
     public NotificationsController() {
         initializeConnection();
+        getAllNotifications();
+        setID();
     }
 
     public void addNotification(Notifications notification) {
 
         try {
 
-            String query = "INSERT INTO notifications (renterID, type, bedrooms, bathrooms, furnished, quadrant)"
-                    + " VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO notifications (renterID, renterUserName, type, bedrooms, bathrooms, furnished, quadrant, status)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = dbConnect.prepareStatement(query);
 
-            stmt.setInt(0, notification.getID());
-            stmt.setString(1, notification.getType());
-            stmt.setInt(2, notification.getBedroom());
-            stmt.setInt(3, notification.getBathroom());
-            stmt.setString(4, notification.getFurnished());
-            stmt.setString(5, notification.getQuadrant());
+            stmt.setInt(1, id);
+            stmt.setString(2, notification.getRenterUserName());
+            stmt.setString(3, notification.getType());
+            stmt.setInt(4, notification.getBedroom());
+            stmt.setInt(5, notification.getBathroom());
+            stmt.setString(6, notification.getFurnished());
+            stmt.setString(7, notification.getQuadrant());
+            stmt.setString(8, notification.getStatus());
 
             notifications.add(notification);
             notifyObservers();
@@ -48,6 +53,22 @@ public class NotificationsController extends DBController implements SubjectNoti
 
     }
 
+    public void deleteNotifications(String userName){
+
+        try {
+            String query = "DELETE FROM notifications WHERE renterUserName = ?";
+            PreparedStatement stmt = dbConnect.prepareStatement(query);
+            stmt.setString(1, userName);
+            notifyObservers();
+            stmt.executeUpdate();
+            stmt.close();
+
+        } catch (SQLException e) {
+
+        }
+
+    }
+
     public void getAllNotifications() {
 
         try {
@@ -59,10 +80,13 @@ public class NotificationsController extends DBController implements SubjectNoti
             set = stmt.executeQuery(query);
             while (set.next()) {
 
-                Notifications notif = new Notifications(Integer.toString(set.getInt("bedrooms")),
+                Notifications notif = new Notifications(Integer.toString(set.getInt("renterID")),
+                        Integer.toString(set.getInt("bedrooms")),
                         Integer.toString(set.getInt("bathrooms")),
                         set.getString("type"), set.getString("furnished"), set.getString("quadrant"),
-                        Integer.toString(set.getInt("renterID")));
+                        set.getString("renterUserName"),
+                        set.getString("status")
+                        );
 
                 notifications.add(notif);
 
@@ -75,6 +99,13 @@ public class NotificationsController extends DBController implements SubjectNoti
 
         }
 
+    }
+
+    public void setID(){
+
+        if(notifications.size() != 0) {
+            id = notifications.get(notifications.size()-1).getId() + 1;
+        }
     }
 
     @Override

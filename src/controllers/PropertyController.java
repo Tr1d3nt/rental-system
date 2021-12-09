@@ -11,40 +11,47 @@ import interfaces.SubjectProperty;
 public class PropertyController extends DBController implements SubjectProperty {
 
     private ArrayList<Property> props = new ArrayList<Property>();
-    private ArrayList<ObserverProperty> observers = new ArrayList<ObserverProperty>();
+    static private ArrayList<ObserverProperty> observers = new ArrayList<ObserverProperty>();
+    private static int id = 0;
+
+
+    public void increment(){
+        id++;
+    }
+
+
 
     public PropertyController() {
-
         initializeConnection();
-
+        getAllProperty();
+        setId();
     }
 
     public void addProperty(Property property) {
 
         try {
 
-            String query = "INSERT INTO property (propertyID, landLordID, landlordName, address, type, bedrooms, bathrooms, furnished, quadrant, status, submitted, expiry)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO property (propertyID, landlordEmail, address, type, bedrooms, bathrooms, furnished, quadrant, status, submitted, expiry)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+            setId();
             PreparedStatement stmt = dbConnect.prepareStatement(query);
-            stmt.setInt(1, property.getPropertyID());
-            stmt.setInt(2, property.getLandlordID());
-            stmt.setString(3, property.getLandlordName());
-            stmt.setString(4, property.getAddress());
-            stmt.setString(5, property.getType());
-            stmt.setInt(6, property.getBedandBath()[0]);
-            stmt.setInt(7, property.getBedandBath()[1]);
-            stmt.setString(8, property.getFurnished());
-            stmt.setString(9, property.getQuadrant());
-            stmt.setString(10, property.getStatus());
-            stmt.setDate(11, property.getSubmitted());
-            stmt.setDate(12, property.getExpiry());
+            stmt.setInt(1, id);
+            stmt.setString(2, property.getEmail());
+            stmt.setString(3, property.getAddress());
+            stmt.setString(4, property.getType());
+            stmt.setInt(5, property.getBedandBath()[0]);
+            stmt.setInt(6, property.getBedandBath()[1]);
+            stmt.setString(7, property.getFurnished());
+            stmt.setString(8, property.getQuadrant());
+            stmt.setString(9, property.getStatus());
+            stmt.setDate(10, property.getSubmitted());
+            stmt.setDate(11, property.getExpiry());
+            increment();
 
             stmt.execute();
             stmt.close();
-
-            props.add(property);
-            //notifyObservers();
+            getAllProperty();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -91,7 +98,7 @@ public class PropertyController extends DBController implements SubjectProperty 
     public void getAllProperty() {
 
         try {
-
+            props.clear();
             Statement stmt;
             ResultSet set;
             String query = "SELECT * FROM property";
@@ -99,18 +106,18 @@ public class PropertyController extends DBController implements SubjectProperty 
             set = stmt.executeQuery(query);
             while (set.next()) {
 
-                Property p = new Property(set.getInt("propertyID"), set.getInt("landlordID"),
+                Property p = new Property(set.getInt("propertyID"), set.getString("landlordEmail"),
                         set.getString("address"), set.getString("type"), set.getInt("bedrooms"),
                         set.getInt("bathrooms"), set.getString("furnished"), set.getString("quadrant"),
                         set.getString("status"),
                         set.getDate("submitted"),
-                        set.getDate("expiry"), set.getString("landlordName"));
+                        set.getDate("expiry"));
 
                 props.add(p);
 
             }
 
-            //notifyObservers();
+            notifyObservers();
 
         } catch (SQLException e) {
 
@@ -120,13 +127,22 @@ public class PropertyController extends DBController implements SubjectProperty 
 
     }
 
+    // function to get most recent property key in database
+    public void setId(){
+        if(props.size() != 0) {
+           this.id = props.get(props.size()-1).getPropertyID() + 1;
+        }
+
+
+    }
+
     public ArrayList<Property> getProp() {
         return props;
     }
 
     @Override
     public void notifyObservers() {
-
+        System.out.println(observers.size());
         for (int i = 0; i < observers.size(); i++) {
             ObserverProperty temp = observers.get(i);
             temp.update(props);

@@ -8,8 +8,7 @@ import controllers.*;
 public class Property {
 
     private int propertyID;
-    private int landLordID;
-    private String landLordName;
+    private String email  ;
     private String address;
     private String type;
     private int bedrooms;
@@ -19,37 +18,35 @@ public class Property {
     private String status;
     private java.sql.Date submitted;
     private java.sql.Date expiry;
-    private PropertyController propertyController;
 
     // contstructor for adding listing
-    public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
-            String furnished, String quadrant, String landLordName) {
+    public Property(String email, String address, String type, String bed, String bath,
+            String furnished, String quadrant, String status, String expiry) {
 
-        this.propertyID = propertyID;
-        this.landLordID = landLordID;
+        this.email = email;
         this.address = address;
         this.type = type;
-        this.bedrooms = bed;
-        this.bathrooms = bath;
+        this.bedrooms = Integer.parseInt(bed);
+        this.bathrooms = Integer.parseInt(bath);
         this.furnished = furnished;
         this.quadrant = quadrant;
-        this.landLordName = landLordName;
-        this.status = "Active";
-
+        this.status = status;
+        int expiryT = Integer.parseInt(expiry);
+        expiryT /= 30;
         Calendar calendar = Calendar.getInstance();
         this.submitted = new java.sql.Date(System.currentTimeMillis());
-        calendar.add(Calendar.MONTH, 1);
+        calendar.add(Calendar.MONTH, expiryT);
         this.expiry = new java.sql.Date(calendar.getTimeInMillis());
 
     }
 
     // constructor for parsing database
-    public Property(int propertyID, int landLordID, String address, String type, int bed, int bath,
-            String furnished, String quadrant, String status, Date submitted, Date expiry, String landLordName) {
+    public Property(int propertyID, String email, String address, String type, int bed, int bath,
+            String furnished, String quadrant, String status, Date submitted, Date expiry) {
 
 
         this.propertyID = propertyID;
-        this.landLordID = landLordID;
+        this.email = email;
         this.address = address;
         this.type = type;
         this.bedrooms = bed;
@@ -59,44 +56,17 @@ public class Property {
         this.status = status;
         this.submitted = submitted;
         this.expiry = expiry;
-        this.landLordName = landLordName;
 
     }
 
-    public void addProperty(Boolean feePaid) {
 
-        if (feePaid) {
-
-            propertyController.addProperty(this);
-
-        } else {
-
-            return;
-        }
-
-    }
-
-    public void updateStatus(String status) {
-
-        propertyController.updateStatus(this.propertyID, status);
-
-    }
-
-    public void removeProperty() {
-        propertyController.removeProperty(this.propertyID);
-    }
 
     // getters
+    public String getEmail(){
+        return this.email;
+    }
     public int getPropertyID() {
         return this.propertyID;
-    }
-
-    public String getLandlordName() {
-        return this.landLordName;
-    }
-
-    public int getLandlordID() {
-        return this.landLordID;
     }
 
     public String getAddress() {

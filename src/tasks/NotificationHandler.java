@@ -26,20 +26,28 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
         subjectProperty.attach(this);
         subjectNotification.attach(this);
 
+
     }
 
     public void addNotification(String bed, String bath, String type,
-            String furnished, String quadrant, String renterID) {
+            String furnished, String quadrant, String renterUserName, String status) {
 
-        Notifications temp = new Notifications(bed, bath, type, furnished, quadrant, renterID);
+        Notifications temp = new Notifications(bed, bath, type, furnished, quadrant, renterUserName, status);
         notificationsController.addNotification(temp);
 
     }
 
-    public Vector<Vector<String>> notifyProperties(String userID) {
+    public void deleteNotification(String userName) {
+
+        notificationsController.deleteNotifications(userName);
+
+
+    }
+
+
+    public Vector<Vector<String>> notifyProperties(String userName) {
 
         Vector<Vector<String>> result = new Vector<Vector<String>>();
-        int id = Integer.parseInt(userID);
         int bed = 0;
         int bath = 0;
         String type = "";
@@ -48,7 +56,7 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
         for (int i = 0; i < notifs.size(); i++) {
 
-            if (id == notifs.get(i).getID()) {
+            if (userName.equals(notifs.get(i).getRenterUserName())) {
 
                 bed = notifs.get(i).getBedroom();
                 bath = notifs.get(i).getBathroom();
@@ -59,6 +67,8 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
             }
 
         }
+
+        System.out.println(properties.size());
 
         for (int i = 0; i < properties.size(); i++) {
 
@@ -71,11 +81,9 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
                 Vector<String> listings = new Vector<String>();
 
                 // Integer type to hold integers for conversion to String
-                Integer propID = properties.get(i).getPropertyID();
                 Integer intBed = properties.get(i).getBedandBath()[0];
                 Integer intBath = properties.get(i).getBedandBath()[1];
                 // All the relevant information
-                String propertyID = propID.toString();
                 String address = properties.get(i).getAddress();
                 String bedrooms = intBed.toString();
                 String bathrooms = intBath.toString();
@@ -84,15 +92,13 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
                 String status = properties.get(i).getStatus();
                 String submitted = properties.get(i).getSubmitted().toString();
 
-                listings.add(propertyID);
                 listings.add(address);
                 listings.add(type);
                 listings.add(bedrooms);
                 listings.add(bathrooms);
+                listings.add(status);
                 listings.add(isFurnished);
                 listings.add(quadrant_);
-                listings.add(status);
-                listings.add(submitted);
 
                 result.add(listings);
 
@@ -103,13 +109,12 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
     }
 
-    public boolean hasNotification(String userID) {
+    public boolean hasNotification(String userName) {
 
-        int id = Integer.parseInt(userID);
 
         for (int i = 0; i < notifs.size(); i++) {
 
-            if (notifs.get(i).getID() == id) {
+            if (notifs.get(i).getRenterUserName().equals(userName)) {
 
                 return true;
             }
@@ -122,12 +127,26 @@ public class NotificationHandler implements ObserverNotification, ObserverProper
 
     @Override
     public void updateNotifs(ArrayList<Notifications> arr) {
-        this.notifs = arr;
+        this.notifs.clear();
+
+        for (int i = 0; i < arr.size(); i++) {
+
+            notifs.add(arr.get(i));
+
+        }
     }
 
     @Override
     public void update(ArrayList<Property> arr) {
-        this.properties = arr;
+
+        this.properties.clear();
+
+        for (int i = 0; i < arr.size(); i++) {
+
+            properties.add((arr.get(i)));
+
+        }
+
     }
 
 }

@@ -1,11 +1,19 @@
 
 package boundries;
 
+import controllers.LoginController;
+import controllers.NotificationsController;
+import controllers.PropertyController;
+import tasks.NotificationHandler;
+import tasks.Property;
+import tasks.PropertyListings;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Vector;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -18,7 +26,14 @@ public class Dashboard extends javax.swing.JFrame {
     
     protected String username, access = "";
     JButton button = new JButton();
+    // add the variables
     private Contact contact;
+    private LoginController loginController = new LoginController();
+    private PropertyController propertyController = new PropertyController();
+    private PropertyListings propertyListings;
+    private NotificationsController notificationsController = new NotificationsController();
+    private NotificationHandler notificationHandler;
+
 
     /**
      * Creates new form Dashboard
@@ -33,6 +48,8 @@ public class Dashboard extends javax.swing.JFrame {
         restrictionP.setVisible(false);
         summaryReportP.setVisible(false);
         notificationsP.setVisible(false);
+        propertyListings = new PropertyListings(propertyController);
+        notificationHandler = new NotificationHandler(notificationsController, propertyController);
     }
 
     /**
@@ -1440,26 +1457,23 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
         return data;
     }
   
-    private void populateTable(JTable table){
+    private void populateTable(JTable table, Vector<Vector<String>> input){
         //get listings from database and populate table
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         //remove previous rows
         int rowCount = model.getRowCount();
         for(int i=0; i!=rowCount; rowCount--){ model.removeRow(i); }
-        
-        String[][] data = fetchData();
-        for(int i=0; i<data.length; i++){
-            String[] row = new String[data[i].length];
-            for(int j=0; j< data[i].length; j++){
-                row[j] = data[i][j];
-            }
-            model.addRow(row);
+
+        for(int i=0; i<input.size(); i++){
+
+            Vector<String> row = input.get(i);
+
+            model.addRow(row.toArray());
         }
     }
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-
-        populateTable(jTable1); // Table for listing
+        populateTable(jTable1, propertyListings.getPropertyListing()); // Table for listing
         jTable1.getColumn("Contact").setCellRenderer(new ButtonRenderer());
         jTable1.getColumn("Contact").setCellEditor(new ButtonEditor(new JCheckBox()));
         
@@ -1546,8 +1560,8 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
         String furnished = furnishedDD.getSelectedItem().toString();
         String status = statusDD.getSelectedItem().toString();
         String quadrant = quadrantDD.getSelectedItem().toString();
-        
-        
+
+
         //NOTE: Call method here to retrieve the filtered data//
         
         
@@ -1557,17 +1571,14 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
         for(int i=0; i!=rowCount; rowCount--){ model.removeRow(i); }
         
         //filtering and displaying process
-        String[][] data = fetchData();
-        String[] toFilter = {type, bedrooms, bathrooms, status, furnished, quadrant};
-        for(int i=0; i<data.length; i++){
-            String[] temp = new String[data[i].length-1];
-            System.arraycopy(data[i],1,temp,0,data[i].length-1);
-            if(Arrays.equals(toFilter,temp)){
-                model.addRow(data[i]);
-            }else {
-                continue;
-            }
+        Vector<Vector<String>> toFilter = propertyListings.filteredPropertyListing(type, bedrooms, bathrooms, furnished, status, quadrant);
+        for(int i=0; i<toFilter.size(); i++){
+
+            Vector<String> row = toFilter.get(i);
+
+            model.addRow(row.toArray());
         }
+
         
         
     }//GEN-LAST:event_filterListingsBMouseClicked
@@ -1579,7 +1590,13 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
         String bedrooms = bedroomI.getValue().toString();
         String status = statusI.getSelectedItem().toString();
         String furnished = furnishedI.getSelectedItem().toString();
-        
+        String quadrant = quadrantI.getSelectedItem().toString();
+        String expiry = periodI.getSelectedItem().toString();
+
+        // add way to get most recent propertyID for propertyController class
+        Property property = new Property(username, address, type, bedrooms, bathrooms, furnished, quadrant, status, expiry);
+        propertyListings.addProperty(property);
+
         if(addressI.getText().length()==0 || Integer.valueOf(bathroomI.getValue().toString())==0
                 || Integer.valueOf(bathroomI.getValue().toString())==0 || feeCheck.isSelected() == false){
             addListingsError.setForeground(Color.RED);
@@ -1598,17 +1615,20 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
         username = usernameI.getText();
         access = accessI.getSelectedItem().toString();
         String password = String.valueOf(passwordI.getPassword());
+        LoginController controller = new LoginController(); // replace with Login class
+
+        Boolean verify = controller.verifyUser(username, password, access);
         
         //NOTE: send all info here to backend and return if authorized to a variable to use in if
         
-        if(username.length()==0 || password.length()==0){
+        if(username.length()==0 || password.length()==0 || !verify){
             loginError.setForeground(Color.RED);
             loginError.setText("1 or more invalid fields, login failed");
         }else {
             loginError.setForeground(Color.GREEN);
             loginError.setText("Successfully logged in!");
         }
-        
+
         loginError.setVisible(true);
         usernameI.setText("");
         passwordI.setText("");
@@ -1619,7 +1639,9 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
         editListingsP.setVisible(true);
         feeMessage.setText("");
         statusChangeMessage.setText("");
-        populateTable(jTable2); //
+
+
+       // populateTable(jTable2); //
         addListingsP.setVisible(false);
         listingsP.setVisible(false);
         loginP.setVisible(false);
@@ -1656,6 +1678,7 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
 
     private void addListingQuoteBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addListingQuoteBMouseClicked
         //get quote
+        // ADD Fee class
         String period = periodI.getSelectedItem().toString();
         //NOTE: call class to retrieve fee from inputed period and set fee in feeField right below
         
@@ -1676,7 +1699,7 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         if(access.equals("Manager")){
-            populateTable(jTable3);
+            //populateTable(jTable3);
             f1.setText("14");
             f2.setText("25");
             f3.setText("11");
@@ -1724,9 +1747,13 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
     }//GEN-LAST:event_sRFBActionPerformed
 
     private void deletePrefrencesBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePrefrencesBMouseClicked
+
+        notificationHandler.deleteNotification(username);
         DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
         int rowCount = model.getRowCount();
         for(int i=0; i!=rowCount; rowCount--){ model.removeRow(i); }
+
+
 
         
     }//GEN-LAST:event_deletePrefrencesBMouseClicked
@@ -1737,7 +1764,7 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         if(access.equals("Renter")){
-            populateTable(jTable4);
+           populateTable(jTable4, notificationHandler.notifyProperties(username));
             notificationsP.setVisible(true);
             summaryReportP.setVisible(false);
             editListingsP.setVisible(false);
@@ -1765,6 +1792,8 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
         String furnished = furnishedDD1.getSelectedItem().toString();
         String status = statusDD1.getSelectedItem().toString();
         String quadrant = quadrantDD1.getSelectedItem().toString();
+
+        notificationHandler.addNotification(bedrooms, bathrooms, type, furnished, quadrant, username, status);
         
         
     }//GEN-LAST:event_setprefrenceBMouseClicked
